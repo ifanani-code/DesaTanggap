@@ -10,22 +10,20 @@ class DetailBerita extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SizedBox(height: 20,),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
               'UMKM',
               style: TextStyle(color: Colors.grey[700], fontSize: 15),
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Text(
               'Judul',
               style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
             ),
-          ),
-          const SizedBox(
-            height: 20,
           ),
           Image.asset(
             'assets/umkm.jpeg',
@@ -34,11 +32,12 @@ class DetailBerita extends StatelessWidget {
             height: 200,
           ),
           const SizedBox(height: 20,),
-          Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Text(
-              'Lorem ipsum dolor sit amet',
-              style: TextStyle(fontSize: 16, ),
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+              style: TextStyle(fontSize: 16,),
+              textAlign: TextAlign.justify,
             ),
           ),
         ],

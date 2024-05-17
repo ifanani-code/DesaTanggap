@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:homepage/page/detail_berita.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+
 
 class HPage extends StatefulWidget {
   const HPage({super.key});
@@ -9,6 +11,12 @@ class HPage extends StatefulWidget {
 }
 
 class _HPageState extends State<HPage> {
+  final List<String> imgList = [
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSP5DohMzaDXz0upKIWC3eNFi-BMcGh5q57rFw1B1ENopANczP1eu9466_rZKw6m6LMPUs&usqp=CAU',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQufRbajRi9C7sNHzr22HbTEfwLKjalSusgt0RUcwkNGT002B5vnKunKDi2ZnWgutkRU8k&usqp=CAU',
+    'https://kelasanimasi.com/wp-content/uploads/2022/08/pembuka-570x320.jpg'
+  ];
+
   @override
   Widget build(BuildContext context) {
     final Map<String, String> arguments =
@@ -133,22 +141,22 @@ class _HPageState extends State<HPage> {
                 ),
               ],
             ),
+            
             Padding(
               padding: const EdgeInsetsDirectional.symmetric(horizontal: 17),
-              child: Container(
-                width: double.infinity,
-                height: 150,
-                decoration: BoxDecoration(
-                  image: const DecorationImage(
-                    image: NetworkImage(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsu3YDDDuaHFQ_zHtGxcf4GnaUdwQKIqkdYxPeDNihxw&s'),
-                    fit: BoxFit
-                        .cover, // Atur agar gambar menutupi seluruh area container
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
+              child: CarouselSlider(
+                  items: imgList
+                      .map((i) => Center(
+                            child: Image.network(i, height: 150,),
+                          ))
+                      .toList(),
+                  options: CarouselOptions(
+                    initialPage: 0,
+                    height: 150,
+                    autoPlay: true,
+                    )),
             ),
+
             const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 17, vertical: 12),
                 child: Text(
@@ -159,6 +167,7 @@ class _HPageState extends State<HPage> {
                       fontFamily: 'Poppins'),
                   textAlign: TextAlign.left,
                 )),
+
             Card(
                 color: Colors.white,
                 margin: const EdgeInsets.fromLTRB(17, 10, 17, 20),

@@ -10,6 +10,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  bool _passwordVisible = false;
+
   void _login() {
     if (_formKey.currentState!.validate()) {
       String username = _usernameController.text;
@@ -34,6 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,20 +45,39 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             children: [
               const SizedBox(
-                height: 100,
+                height: 50,
               ),
-              const Text('Selamat datang di aplikasi Desa tanggap',
+              const Text('Desa tanggap',
                   style: TextStyle(
-                      color: Color(0xFF2B2D42),
-                      fontSize: 20,
+                      color: Color(0xFFD90429),
+                      fontSize: 28,
                       fontWeight: FontWeight.bold)),
               const SizedBox(
-                height: 10,
+                height: 15,
               ),
-              const Text('lorem ipsum lorem ipsum lorem ipmsum lorem ipsum',
-                  style: TextStyle(color: Color(0xFF8D99AE), fontSize: 15)),
-              const SizedBox(
-                height: 30,
+              const Text('aplikasi e-lapor untuk respons cepat masalah desa',
+                  style: TextStyle(color: Color(0xFF2B2D42), fontSize: 16, fontWeight: FontWeight.w600)),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton(
+                        onPressed: () {},
+                        child: const Text(
+                          'Masuk',
+                          style:
+                              TextStyle(color: Color(0xFFD90429), fontSize: 16),
+                        )),
+                    TextButton(
+                        onPressed: () {},
+                        child: const Text(
+                          'Daftar',
+                          style:
+                              TextStyle(color: Color(0xFF8D99AE), fontSize: 16),
+                        )),
+                  ],
+                ),
               ),
               Form(
                 key: _formKey,
@@ -65,12 +87,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     TextFormField(
                       controller: _usernameController,
                       decoration: const InputDecoration(
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 12.5, horizontal: 15),
-                          labelText: 'Username',
-                          border: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Color(0xFF2B2D42)))),
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: 12.5, horizontal: 15),
+                        labelText: 'Username',
+                        border: OutlineInputBorder(),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color(0xFF2B2D42), width: 2)),
+                      ),
                       // validator: (value) {
                       //   if (value == null || value.isEmpty) {
                       //     return 'Username tidak boleh kosong';
@@ -81,12 +105,25 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 10.0),
                     TextFormField(
                       controller: _passwordController,
-                      obscureText: true,
-                      decoration: const InputDecoration(
+                      obscureText: !_passwordVisible,
+                      decoration: InputDecoration(
+
+                          // focusColor: Color(0xFFD90429),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _passwordVisible = !_passwordVisible;
+                              });
+                            },
+                            icon: const Icon(Icons.remove_red_eye_outlined),
+                            color: Colors.grey,
+                          ),
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 12.5, horizontal: 15),
                           labelText: 'Password',
-                          border: OutlineInputBorder(
+                          focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(color: Color(0xFF2B2D42), width: 2)),
+                          border: const OutlineInputBorder(
                               borderSide:
                                   BorderSide(color: Color(0xFF2B2D42)))),
                       // validator: (value) {
@@ -101,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed: _login,
                         style: ButtonStyle(
                             backgroundColor: const MaterialStatePropertyAll(
-                                Color(0xFF2B2D42)),
+                                Color(0xFFD90429)),
                             minimumSize:
                                 const MaterialStatePropertyAll(Size(300, 45)),
                             shape: MaterialStatePropertyAll(
@@ -128,8 +165,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         'Lupa Password?',
                         textAlign: TextAlign.end,
                         style: TextStyle(
-                            color: Color(0xFF2B2D42),
-                            fontSize: 15,
+                            color: Color(0xFFD90429),
+                            fontSize: 16,
                             fontWeight: FontWeight.bold),
                       ))
                 ],
@@ -144,9 +181,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       TextSpan(
                         text:
-                            "Dengan masuk ke aplikasi, kamu menyetujui segala ",
-                        style:
-                            TextStyle(fontSize: 15, color: Color(0xFF8D99AE),),
+                            "Dengan masuk ke aplikasi, anda menyetujui segala ",
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Color(0xFF8D99AE),
+                        ),
                       ),
                       TextSpan(
                         text: "Syarat dan Ketentuan ",
@@ -177,15 +216,28 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 45,
               ),
               const Divider(),
-              const SizedBox(height: 5,),
+              const SizedBox(
+                height: 5,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Belum punya akun?', style: TextStyle(color: Color(0xFF8D99AE), fontSize: 15),),
+                  const Text(
+                    'Belum punya akun?',
+                    style: TextStyle(color: Color(0xFF8D99AE), fontSize: 15),
+                  ),
                   TextButton(
-                      onPressed: () =>
-                          Navigator.pushReplacementNamed(context, '/daftar',),
-                      child: const Text('Daftar di sini.', style: TextStyle(color: Color(0xFF2B2D42), fontWeight: FontWeight.bold, fontSize: 15),))
+                      onPressed: () => Navigator.pushReplacementNamed(
+                            context,
+                            '/daftar',
+                          ),
+                      child: const Text(
+                        'Daftar di sini.',
+                        style: TextStyle(
+                            color: Color(0xFF2B2D42),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15),
+                      ))
                 ],
               )
             ],
