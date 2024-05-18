@@ -57,7 +57,7 @@ class _HomeState extends State<Home> {
                             const Text(
                               'Lapor',
                               style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.w600),
+                                  fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(
                               height: 40,
@@ -240,9 +240,48 @@ class _HomeState extends State<Home> {
       MaterialPageRoute(
         builder: (context) => Lapor(image: _selectedImage!),
       ),
-    ).then((_) => setState(() {
-      _selectedImage = null;
-    }));
+    ).then((result) {
+      if (result == 'success') {
+        setState(() {
+          _selectedImage = null;
+        });
+
+        showModalBottomSheet(
+            context: context,
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(25))),
+            builder: (context) {
+              return Container(
+                padding: const EdgeInsets.all(16),
+                height: 200,
+                child: const Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.check_circle,
+                        color: Color(0xFF2B2D42),
+                        size: 60,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'Laporan berhasil dikirim!',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            });
+      } else {
+        setState(() {
+          _selectedImage = null;
+        });
+      }
+    });
   }
 
   Future _pickImageFromCamera() async {
@@ -261,8 +300,48 @@ class _HomeState extends State<Home> {
       MaterialPageRoute(
         builder: (context) => Lapor(image: _selectedImage!),
       ),
-    ).then((_) => setState(() {
-      _selectedImage = null;
-    }));
+    ).then((result) {
+      if (result == 'success') {
+        setState(() {
+          _selectedImage = null;
+        });
+
+        showModalBottomSheet(
+            context: context,
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(25))),
+            builder: (context) {
+              return Container(
+                padding: const EdgeInsets.all(16),
+                height: 200,
+                child: const Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.check_circle,
+                        color: Color(0xFF2B2D42),
+                        size: 60,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'Laporan berhasil dikirim!',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            });
+      } else {
+        setState(() {
+          _selectedImage = null;
+        });
+      }
+    });
+
   }
 }

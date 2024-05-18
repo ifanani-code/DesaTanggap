@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:homepage/page/lupa_pw.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -25,17 +26,14 @@ class _LoginScreenState extends State<LoginScreen> {
           'password': password,
         });
       } else {
-        // Jika salah, tampilkan pesan kesalahan
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Username atau password salah'),
-            // backgroundColor: Colors.red,
           ),
         );
       }
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +53,12 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 15,
               ),
-              const Text('aplikasi e-lapor untuk respons cepat masalah desa',
-                  style: TextStyle(color: Color(0xFF2B2D42), fontSize: 16, fontWeight: FontWeight.w600)),
+              const Text('Aplikasi e-lapor untuk respons cepat masalah desa',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      color: Color(0xFF2B2D42),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500)),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Row(
@@ -92,8 +94,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         labelText: 'Username',
                         border: OutlineInputBorder(),
                         focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Color(0xFF2B2D42), width: 2)),
+                            borderSide:
+                                BorderSide(color: Colors.grey, width: 2)),
                       ),
                       // validator: (value) {
                       //   if (value == null || value.isEmpty) {
@@ -122,7 +124,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               vertical: 12.5, horizontal: 15),
                           labelText: 'Password',
                           focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xFF2B2D42), width: 2)),
+                              borderSide:
+                                  BorderSide(color: Colors.grey, width: 2)),
                           border: const OutlineInputBorder(
                               borderSide:
                                   BorderSide(color: Color(0xFF2B2D42)))),
@@ -160,7 +163,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LupaPW())),
                       child: const Text(
                         'Lupa Password?',
                         textAlign: TextAlign.end,
@@ -172,7 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
               const SizedBox(
-                height: 12,
+                height: 37,
               ),
               SizedBox(
                 width: 300,
@@ -184,28 +190,32 @@ class _LoginScreenState extends State<LoginScreen> {
                             "Dengan masuk ke aplikasi, anda menyetujui segala ",
                         style: TextStyle(
                           fontSize: 15,
-                          color: Color(0xFF8D99AE),
+                          color: Colors.black,
                         ),
                       ),
                       TextSpan(
                         text: "Syarat dan Ketentuan ",
                         style: TextStyle(
                             decoration: TextDecoration.underline,
+                            decorationColor: Color(0xFFD90429),
+                            decorationThickness: 2,
                             fontSize: 15,
-                            color: Color(0xFF2B2D42),
+                            color: Color(0xFFD90429),
                             fontWeight: FontWeight.bold),
                       ),
                       TextSpan(
                         text: "dan ",
                         style:
-                            TextStyle(fontSize: 15, color: Color(0xFF8D99AE)),
+                            TextStyle(fontSize: 15, color: Colors.black),
                       ),
                       TextSpan(
                         text: "Kebijakan Privasi Desa Tanggap",
                         style: TextStyle(
                             decoration: TextDecoration.underline,
+                            decorationColor: Color(0xFFD90429),
+                            decorationThickness: 2,
                             fontSize: 15,
-                            color: Color(0xFF2B2D42),
+                            color: Color(0xFFD90429),
                             fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -213,18 +223,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(
-                height: 45,
+                height: 20,
               ),
               const Divider(),
               const SizedBox(
-                height: 5,
+                height: 6,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
                     'Belum punya akun?',
-                    style: TextStyle(color: Color(0xFF8D99AE), fontSize: 15),
+                    style: TextStyle(color: Colors.black, fontSize: 15),
                   ),
                   TextButton(
                       onPressed: () => Navigator.pushReplacementNamed(
@@ -234,7 +244,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: const Text(
                         'Daftar di sini.',
                         style: TextStyle(
-                            color: Color(0xFF2B2D42),
+                            color: Color(0xFFD90429),
                             fontWeight: FontWeight.bold,
                             fontSize: 15),
                       ))
