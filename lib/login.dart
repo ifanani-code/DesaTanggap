@@ -89,6 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     TextFormField(
                       controller: _usernameController,
                       decoration: const InputDecoration(
+                        // prefixIcon: IconButton(onPressed: (){}, icon: Icon(Icons.mail)),
                         contentPadding: EdgeInsets.symmetric(
                             vertical: 12.5, horizontal: 15),
                         labelText: 'Username',
@@ -178,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
               const SizedBox(
-                height: 37,
+                height: 12,
               ),
               SizedBox(
                 width: 300,
@@ -223,12 +224,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(
-                height: 20,
+                height: 51,
               ),
               const Divider(),
-              const SizedBox(
-                height: 6,
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
