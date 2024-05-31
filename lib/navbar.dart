@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
   int currentTab = 0;
   final List<Widget> screens = [
     const HPage(),
-    const Aktifitas(),
+    const Aktivitas(),
     const Notif(),
     const Akun()
   ];
@@ -144,7 +144,7 @@ class _HomeState extends State<Home> {
                     minWidth: 20,
                     onPressed: () {
                       setState(() {
-                        currentScreen = const Aktifitas();
+                        currentScreen = const Aktivitas();
                         currentTab = 1;
                       });
                     },

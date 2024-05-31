@@ -38,6 +38,7 @@ dependencies:
   carousel_slider: ^4.2.1
   dropdown_textfield: ^1.0.8
   image_picker: ^1.1.1
+  timeline_tile: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -65,6 +66,7 @@ flutter:
   assets:
     - assets/logo_bjsg.jpeg
     - assets/umkm.jpeg
+    - assets/sampah.jpeg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

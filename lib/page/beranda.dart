@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:homepage/page/detail_berita.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:homepage/page/laporan_masyarakat.dart';
 
 class HPage extends StatefulWidget {
   const HPage({super.key});
@@ -92,7 +93,9 @@ class _HPageState extends State<HPage> {
                                     children: [
                                       IconButton(
                                         iconSize: 30,
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Navigator.push(context, MaterialPageRoute(builder: (context)=> LaporanMasyarakat()));
+                                        },
                                         icon: const Icon(Icons.report_problem),
                                         color: const Color(0xFFD90429),
                                       ),
@@ -167,18 +170,18 @@ class _HPageState extends State<HPage> {
                       )),
                 ),
                 const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 17, vertical: 12),
+                    padding: EdgeInsets.fromLTRB(17, 34, 17, 5),
                     child: Text(
                       'Berita',
                       style: TextStyle(
                           fontSize: 17,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.bold,
                           fontFamily: 'Poppins'),
                       textAlign: TextAlign.left,
                     )),
                 Card(
                     color: Colors.white,
-                    margin: const EdgeInsets.fromLTRB(17, 10, 17, 20),
+                    margin: const EdgeInsets.fromLTRB(17, 0, 17, 20),
                     child: InkWell(
                       onTap: () => Navigator.push(
                           context,
