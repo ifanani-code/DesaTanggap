@@ -35,72 +35,79 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageStorage(bucket: bucket, child: currentScreen),
-      floatingActionButton: FloatingActionButton(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-          foregroundColor: Colors.white,
-          backgroundColor: const Color(0xFFD90429),
-          child: const Icon(Icons.camera_alt),
-          onPressed: () {
-            showModalBottomSheet(
-                shape: const RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(32))),
-                context: context,
-                builder: (BuildContext context) => SizedBox(
-                      height: 200,
-                      width: double.infinity,
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              'Lapor',
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(
-                              height: 40,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ElevatedButton(
-                                  onPressed: () => _pickImageFromGallery(),
-                                  style: const ButtonStyle(
-                                      backgroundColor: MaterialStatePropertyAll(
-                                          Color(0xFF2B2D42)),
-                                      foregroundColor: MaterialStatePropertyAll(
-                                          Colors.white)),
-                                  child: const Text('Unggah foto'),
-                                ),
-                                const SizedBox(
-                                  width: 30,
-                                ),
-                                ElevatedButton(
-                                    onPressed: () => _pickImageFromCamera(),
+      floatingActionButton: Container(
+        height: 65,
+        width: 65,
+        child: FittedBox(
+
+        child: FloatingActionButton(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+            foregroundColor: Colors.white,
+            backgroundColor: const Color(0xFFD90429),
+            child: const Icon(Icons.camera_alt),
+            onPressed: () {
+              showModalBottomSheet(
+                  shape: const RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(32))),
+                  context: context,
+                  builder: (BuildContext context) => SizedBox(
+                        height: 200,
+                        width: double.infinity,
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                'Lapor',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                              const SizedBox(
+                                height: 40,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () => _pickImageFromGallery(),
                                     style: const ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStatePropertyAll(
-                                                Color(0xFFD90429)),
-                                        foregroundColor:
-                                            MaterialStatePropertyAll(
-                                                Colors.white)),
-                                    child: const Text('Ambil foto'))
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            _selectedImage != null
-                                ? Image.file(_selectedImage!)
-                                : const Text('')
-                          ],
+                                        backgroundColor: MaterialStatePropertyAll(
+                                            Color(0xFF2B2D42)),
+                                        foregroundColor: MaterialStatePropertyAll(
+                                            Colors.white)),
+                                    child: const Text('Unggah foto'),
+                                  ),
+                                  const SizedBox(
+                                    width: 30,
+                                  ),
+                                  ElevatedButton(
+                                      onPressed: () => _pickImageFromCamera(),
+                                      style: const ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStatePropertyAll(
+                                                  Color(0xFFD90429)),
+                                          foregroundColor:
+                                              MaterialStatePropertyAll(
+                                                  Colors.white)),
+                                      child: const Text('Ambil foto'))
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              _selectedImage != null
+                                  ? Image.file(_selectedImage!)
+                                  : const Text('')
+                            ],
+                          ),
                         ),
-                      ),
-                    ));
-            // Navigator.push(context, MaterialPageRoute(builder: (context)=>const Lapor()));
-          }),
+                      ));
+              // Navigator.push(context, MaterialPageRoute(builder: (context)=>const Lapor()));
+            }),
+        )
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         color: const Color(0xFF2B2D42),

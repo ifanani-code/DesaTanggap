@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'data_diri.dart';
+import 'package:homepage/page/data_diri.dart';
 
 class Akun extends StatefulWidget {
   const Akun({super.key});
@@ -9,202 +9,106 @@ class Akun extends StatefulWidget {
 }
 
 class _AkunState extends State<Akun> {
-  void _closeBottomSheetAndNavigateBack(BuildContext context) {
-    Navigator.of(context).pop(); // Menutup bottom sheet terlebih dahulu
-    Navigator.of(context)
-        .popUntil(ModalRoute.withName('/login')); // Kembali ke halaman login
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-            child: Text(
-          'Profil saya',
-          style: TextStyle(
-              fontFamily: 'Poppins', fontWeight: FontWeight.w600, fontSize: 26),
-        )),
+        // elevation: 0,
+        // backgroundColor: Colors.white,
+        // iconTheme: const IconThemeData(color: Colors.black),
+        // actions: [
+        //   IconButton(
+        //     icon: const Icon(Icons.more_vert),
+        //     onPressed: () {
+        //       // Aksi untuk tombol lainnya
+        //     },
+        //   ),
+        // ],
       ),
-      body: SingleChildScrollView(
+      body: Container(
+        color: Color(0xFFEDF2F4),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 100,
-            ),
-            Center(
-              child: CircleAvatar(
-                radius: 75,
-                backgroundImage: AssetImage('assets/logo_bjsg.jpeg'),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Center(
-              child: Text(
-                'Username',
-                style: TextStyle(
-                  fontSize: 23,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            Center(
-              child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => DataDiri()));
-                  },
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStatePropertyAll(Color(0xFF2B2D42)),
-                      minimumSize: MaterialStatePropertyAll(Size(300, 45)),
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)))),
-                  child: Text(
-                    'Data Diri',
-                    style: TextStyle(
+            Container(
+              color: Colors.white, // Warna putih untuk row profile avatar
+              padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+              child: Row(
+                children: [
+                  const CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Color(0xFFD90429),
+                    child: Icon(
+                      Icons.person,
                       color: Colors.white,
+                      size: 30,
                     ),
-                  )),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Center(
-              child: ElevatedButton(
-                  onPressed: () {
-                    showModalBottomSheet(
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(32))),
-                        context: context,
-                        builder: (BuildContext context) => SizedBox(
-                              height: 200,
-                              width: double.infinity,
-                              child: Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'Ingin keluar?',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    const SizedBox(
-                                      height: 40,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        ElevatedButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context),
-                                          style: const ButtonStyle(
-                                              backgroundColor:
-                                                  MaterialStatePropertyAll(
-                                                      Color(0xFF2B2D42)),
-                                              foregroundColor:
-                                                  MaterialStatePropertyAll(
-                                                      Colors.white)),
-                                          child: const Text('Batal'),
-                                        ),
-                                        const SizedBox(
-                                          width: 30,
-                                        ),
-                                        ElevatedButton(
-                                            onPressed: () =>
-                                                _closeBottomSheetAndNavigateBack(
-                                                    context),
-                                            style: const ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStatePropertyAll(
-                                                        Color(0xFFD90429)),
-                                                foregroundColor:
-                                                    MaterialStatePropertyAll(
-                                                        Colors.white)),
-                                            child: const Text('Keluar'))
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ));
-                  },
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStatePropertyAll(Color(0xFF2B2D42)),
-                      minimumSize: MaterialStatePropertyAll(Size(300, 45)),
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)))),
-                  child: Text(
-                    'Keluar',
-                    style: TextStyle(color: Colors.white),
-                  )),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Center(
-              child: ElevatedButton(
-                  onPressed: () {
-                    // SizedBox(height: 30,);
-                    showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        content: const Text(
-                          'Yakin ingin hapus akun?',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w600),
-                        ),
-                        actions: <Widget>[
-                          Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                ElevatedButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    style: const ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStatePropertyAll(
-                                                Color(0xFF2B2D42)),
-                                        foregroundColor:
-                                            MaterialStatePropertyAll(
-                                                Colors.white)),
-                                    child: const Text('Batal')),
-                                ElevatedButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    style: const ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStatePropertyAll(
-                                                Color(0xFFD90429)),
-                                        foregroundColor:
-                                            MaterialStatePropertyAll(
-                                                Colors.white)),
-                                    child: const Text('Hapus'))
-                              ],
-                            ),
-                          )
-                        ],
+                  ),
+                  const SizedBox(width: 16),
+                  const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Azizi Asadel',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
-                    );
-                  },
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStatePropertyAll(Color(0xFFD90429)),
-                      minimumSize: MaterialStatePropertyAll(Size(300, 45)),
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)))),
-                  child: Text(
-                    'Hapus Akun',
-                    style: TextStyle(color: Colors.white),
-                  )),
-            )
+                      Text(
+                        '@zee',
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  IconButton(
+                    icon: const Icon(Icons.edit, color: Colors.black),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const DataDiri()));
+                    },
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Container(
+              color: Colors.white, // Warna putih untuk list tile
+              child: Column(
+                children: [
+                  ListTile(
+                    leading: const Icon(Icons.settings, color: Colors.black),
+                    title: const Text('Pengaturan'),
+                    onTap: () {
+                      // Aksi untuk tombol Pengaturan
+                    },
+                  ),
+                  const Divider(thickness: 0.5,),
+                  ListTile(
+                    leading: const Icon(Icons.info, color: Colors.black),
+                    title: const Text('Tentang Aplikasi'),
+                    onTap: () {
+                      // Aksi untuk tombol Tentang Aplikasi
+                    },
+                  ),
+                ],
+              ),
+            ),
+                  SizedBox(
+                    height: 15,
+                  ),
+            Container(
+                color: Colors.white, // Warna putih untuk list tile
+                child: Column(children: [
+                  ListTile(
+                    leading: const Icon(Icons.exit_to_app, color: Color(0xFFD90429)),
+                    title: const Text('Keluar',
+                        style: TextStyle(color: Color(0xFFD90429))),
+                    onTap: () {
+                      // Aksi untuk tombol Keluar
+                    },
+                  ),
+                ]))
           ],
         ),
       ),

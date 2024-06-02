@@ -45,7 +45,8 @@ class _LaporState extends State<Lapor> {
                       // ),
                       Image.file(
                         widget.image,
-                        width: 100,
+                        width: 200,
+                        height: 175,
                       ),
                       SizedBox(
                         height: 20,
@@ -108,7 +109,7 @@ class _LaporState extends State<Lapor> {
                         controller: _detailController,
                         decoration: InputDecoration(
                             contentPadding: const EdgeInsets.symmetric(
-                                vertical: 65, horizontal: 10),
+                                vertical: 50, horizontal: 10),
                             hintText: 'Detail Laporan',
                             hintStyle: const TextStyle(),
                             focusedBorder: const OutlineInputBorder(

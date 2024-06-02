@@ -67,6 +67,12 @@ flutter:
     - assets/logo_bjsg.jpeg
     - assets/umkm.jpeg
     - assets/sampah.jpeg
+    - assets/dokumen.png
+    - assets/Police.png
+    - assets/Binoculars.png
+    - assets/Medical Sign Board.png
+    - assets/Tent.png
+    - assets/Megaphone.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:homepage/page/detail_berita.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:homepage/page/kontak_darurat.dart';
 import 'package:homepage/page/laporan_masyarakat.dart';
 
 class HPage extends StatefulWidget {
@@ -30,14 +31,14 @@ class _HPageState extends State<HPage> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
+          const SliverAppBar(
             floating: true,
-            title: const Text(
+            title: Text(
               'Desa Tanggap',
               style:
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
-            backgroundColor: const Color(0xFFD90429),
+            backgroundColor: Color(0xFFD90429),
           ),
           SliverList(
               delegate: SliverChildListDelegate([
@@ -53,17 +54,21 @@ class _HPageState extends State<HPage> {
                     ),
                     Column(
                       children: [
-                        const Padding(
-                          padding: EdgeInsets.symmetric(
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
                               horizontal: 15, vertical: 20),
                           child: TextField(
                             decoration: InputDecoration(
+                                filled: true,
+                                fillColor:
+                                    const Color.fromARGB(75, 255, 255, 255),
                                 border: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Colors.white)),
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    borderSide: BorderSide.none),
                                 hintText: 'Cari Layanan...',
-                                hintStyle: TextStyle(color: Colors.white),
-                                suffixIcon: Icon(
+                                hintStyle:
+                                    const TextStyle(color: Colors.white54),
+                                suffixIcon: const Icon(
                                   Icons.search,
                                   color: Colors.white,
                                 )),
@@ -89,60 +94,94 @@ class _HPageState extends State<HPage> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  Column(
-                                    children: [
-                                      IconButton(
-                                        iconSize: 30,
-                                        onPressed: () {
-                                          Navigator.push(context, MaterialPageRoute(builder: (context)=> LaporanMasyarakat()));
-                                        },
-                                        icon: const Icon(Icons.report_problem),
-                                        color: const Color(0xFFD90429),
-                                      ),
-                                      const SizedBox(
-                                        width: 80,
-                                        child: Text('Laporan masyarakat',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                            )),
-                                      )
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      IconButton(
-                                        iconSize: 30,
-                                        onPressed: () {},
-                                        icon:
-                                            const Icon(Icons.document_scanner),
-                                        color: const Color(0xFFD90429),
-                                      ),
-                                      const SizedBox(
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  LaporanMasyarakat()));
+                                    },
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 7.5,
+                                        ),
+                                        Image.asset(
+                                          'assets/Megaphone.png',
+                                          width: 39,
+                                          height: 39,
+                                        ),
+                                        const SizedBox(
+                                          height: 5,
+                                        ),
+                                        const SizedBox(
                                           width: 80,
-                                          child: Text('Urus dokumen',
+                                          child: Text('Laporan masyarakat',
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
-                                                  color: Colors.black)))
-                                    ],
+                                                  color: Colors.black,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w600)),
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                  Column(
-                                    children: [
-                                      IconButton(
-                                        iconSize: 30,
-                                        onPressed: () {},
-                                        icon: const Icon(Icons.sos),
-                                        color: const Color(0xFFD90429),
-                                      ),
-                                      const SizedBox(
-                                          width: 80,
-                                          child: Text('Kontak darurat',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Colors.black)))
-                                    ],
+                                  InkWell(
+                                    onTap: () {},
+                                    child: Column(
+                                      children: [
+                                        IconButton(
+                                          iconSize: 40,
+                                          onPressed: () {},
+                                          icon: const Icon(
+                                              Icons.document_scanner),
+                                          color: const Color(0xFFD90429),
+                                        ),
+                                        const SizedBox(
+                                            width: 80,
+                                            child: Text('Urus dokumen',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 12)))
+                                      ],
+                                    ),
                                   ),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const KontakDarurat()));
+                                    },
+                                    child: Column(
+                                      children: [
+                                        IconButton(
+                                          iconSize: 40,
+                                          onPressed: () {
+                                            // Navigator.push(context, MaterialPageRoute(builder: (context)=>const KontakDarurat()));
+                                          },
+                                          icon: const Icon(Icons.sos),
+                                          color: const Color(0xFFD90429),
+                                        ),
+                                        const SizedBox(
+                                            width: 80,
+                                            child: Text('Kontak darurat',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: 12)))
+                                      ],
+                                    ),
+                                  )
                                 ],
+                              ),
+                              const SizedBox(
+                                height: 50,
                               ),
                             ],
                           ),
@@ -174,8 +213,8 @@ class _HPageState extends State<HPage> {
                     child: Text(
                       'Berita',
                       style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
                           fontFamily: 'Poppins'),
                       textAlign: TextAlign.left,
                     )),
@@ -186,7 +225,7 @@ class _HPageState extends State<HPage> {
                       onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => DetailBerita())),
+                              builder: (context) => const DetailBerita())),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -218,7 +257,7 @@ class _HPageState extends State<HPage> {
                                     const SizedBox(
                                       width: 70,
                                     ),
-                                    Text('3menit',
+                                    Text('3 menit',
                                         style: TextStyle(
                                             color: Colors.grey[700],
                                             fontSize: 12)),
@@ -236,7 +275,7 @@ class _HPageState extends State<HPage> {
                                   'Judul',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 20),
+                                      fontSize: 17),
                                   textAlign: TextAlign.start,
                                 ),
                                 const SizedBox(
@@ -289,7 +328,7 @@ class _HPageState extends State<HPage> {
                                 const SizedBox(
                                   width: 70,
                                 ),
-                                Text('3menit',
+                                Text('3 menit',
                                     style: TextStyle(
                                         color: Colors.grey[700], fontSize: 12)),
                                 const SizedBox(
@@ -305,7 +344,7 @@ class _HPageState extends State<HPage> {
                             const Text(
                               'Judul',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
+                                  fontWeight: FontWeight.bold, fontSize: 17),
                               textAlign: TextAlign.start,
                             ),
                             const SizedBox(
@@ -357,7 +396,7 @@ class _HPageState extends State<HPage> {
                                 const SizedBox(
                                   width: 70,
                                 ),
-                                Text('3menit',
+                                Text('3 menit',
                                     style: TextStyle(
                                         color: Colors.grey[700], fontSize: 12)),
                                 const SizedBox(
@@ -373,7 +412,7 @@ class _HPageState extends State<HPage> {
                             const Text(
                               'Judul',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
+                                  fontWeight: FontWeight.bold, fontSize: 17),
                               textAlign: TextAlign.start,
                             ),
                             const SizedBox(

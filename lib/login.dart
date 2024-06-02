@@ -96,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         border: OutlineInputBorder(),
                         focusedBorder: OutlineInputBorder(
                             borderSide:
-                                BorderSide(color: Colors.grey, width: 2)),
+                                BorderSide(color: Color(0xFF2B2D42), width: 2)),
                       ),
                       // validator: (value) {
                       //   if (value == null || value.isEmpty) {
@@ -126,7 +126,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           labelText: 'Password',
                           focusedBorder: const OutlineInputBorder(
                               borderSide:
-                                  BorderSide(color: Colors.grey, width: 2)),
+                                  BorderSide(color: Color(0xFF2B2D42), width: 2)),
                           border: const OutlineInputBorder(
                               borderSide:
                                   BorderSide(color: Color(0xFF2B2D42)))),

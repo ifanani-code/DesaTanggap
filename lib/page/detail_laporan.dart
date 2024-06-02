@@ -8,6 +8,7 @@ class DetailLaporan extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        titleSpacing: 0,
         title: const Text(
           'Detail Laporan',
           style: TextStyle(
