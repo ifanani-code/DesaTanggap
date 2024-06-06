@@ -25,6 +25,7 @@ class Notif extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Notifikasi', style: TextStyle(fontWeight: FontWeight.bold),),
         // backgroundColor: const Color(0xFF2B2D42),
         // actions: [

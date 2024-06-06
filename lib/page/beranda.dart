@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:homepage/page/detail_berita.dart';
+import 'package:homepage/page/berita.dart';
+// import 'package:homepage/page/detail_berita.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:homepage/page/buat_dokumen.dart';
 import 'package:homepage/page/kontak_darurat.dart';
 import 'package:homepage/page/laporan_masyarakat.dart';
 
@@ -28,11 +30,43 @@ class _HPageState extends State<HPage> {
 
     if (username == 'fanani' && password == '6701223054') {}
 
+    final List<Map<String, String>> beritaList = [
+      {
+        'kategori': 'UMKM',
+        'waktu': '3 menit',
+        'judul': 'Judul 1',
+        'deskripsi': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        'imagePath': 'assets/sampah.jpeg',
+      },
+      {
+        'kategori': 'UMKM',
+        'waktu': '5 menit',
+        'judul': 'Judul 2',
+        'deskripsi': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        'imagePath': 'assets/sampah.jpeg',
+      },
+      {
+        'kategori': 'UMKM',
+        'waktu': '10 menit',
+        'judul': 'Judul 3',
+        'deskripsi': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        'imagePath': 'assets/sampah.jpeg',
+      },
+      {
+        'kategori': 'UMKM',
+        'waktu': '10 menit',
+        'judul': 'Judul 4',
+        'deskripsi': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        'imagePath': 'assets/sampah.jpeg',
+      },
+    ];
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           const SliverAppBar(
             floating: true,
+            automaticallyImplyLeading: false,
             title: Text(
               'Desa Tanggap',
               style:
@@ -100,7 +134,7 @@ class _HPageState extends State<HPage> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  LaporanMasyarakat()));
+                                                  const LaporanMasyarakat()));
                                     },
                                     child: Column(
                                       children: [
@@ -128,12 +162,16 @@ class _HPageState extends State<HPage> {
                                     ),
                                   ),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const BuatDokumen()));
+                                    },
                                     child: Column(
                                       children: [
                                         IconButton(
                                           iconSize: 40,
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Navigator.push(context, MaterialPageRoute(builder: (context)=>const BuatDokumen()));
+                                          },
                                           icon: const Icon(
                                               Icons.document_scanner),
                                           color: const Color(0xFFD90429),
@@ -162,7 +200,7 @@ class _HPageState extends State<HPage> {
                                         IconButton(
                                           iconSize: 40,
                                           onPressed: () {
-                                            // Navigator.push(context, MaterialPageRoute(builder: (context)=>const KontakDarurat()));
+                                            Navigator.push(context, MaterialPageRoute(builder: (context)=>const KontakDarurat()));
                                           },
                                           icon: const Icon(Icons.sos),
                                           color: const Color(0xFFD90429),
@@ -208,227 +246,144 @@ class _HPageState extends State<HPage> {
                         autoPlay: true,
                       )),
                 ),
-                const Padding(
-                    padding: EdgeInsets.fromLTRB(17, 34, 17, 5),
-                    child: Text(
-                      'Berita',
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Poppins'),
-                      textAlign: TextAlign.left,
+                Padding(
+                    padding: const EdgeInsets.fromLTRB(17, 34, 17, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Berita',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: 'Poppins'),
+                          textAlign: TextAlign.left,
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          BeritaListScreen()));
+                            },
+                            child: Text(
+                              'Lainnya',
+                              style: TextStyle(
+                                  fontSize: 15, color: Colors.grey.shade700),
+                            ))
+                      ],
                     )),
-                Card(
-                    color: Colors.white,
-                    margin: const EdgeInsets.fromLTRB(17, 0, 17, 20),
-                    child: InkWell(
-                      onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const DetailBerita())),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.asset(
-                              'assets/umkm.jpeg',
-                              height: 150,
-                              width: 130,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 350,
+                        child: ListView.builder(
+                          itemCount: 2,
+                          itemBuilder: (context, index) {
+                            final berita = beritaList[index];
+                            return 
+                            Column(
                               children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Text(
-                                      'UMKM',
-                                      style: TextStyle(
-                                          color: Colors.grey[700],
-                                          fontSize: 12),
+                                Card(
+                                  elevation: 3,
+                                  color: Colors.white,
+                                  child: InkWell(
+                                    onTap: () {
+                                        Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => DetailBerita(
+                                            judul: berita['judul']!,
+                                            deskripsi: berita['deskripsi']!,
+                                            imagePath: berita['imagePath']!,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: Image.asset(
+                                            berita['imagePath']!,
+                                            height: 150,
+                                            width: 130,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              10, 10, 0, 10),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    berita['kategori']!,
+                                                    style: TextStyle(
+                                                        color: Colors.grey[700],
+                                                        fontSize: 12),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 70,
+                                                  ),
+                                                  Text(
+                                                    berita['waktu']!,
+                                                    style: TextStyle(
+                                                        color: Colors.grey[700],
+                                                        fontSize: 12),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  const Icon(
+                                                    Icons.access_time_filled,
+                                                    color: Colors.grey,
+                                                    size: 17,
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(height: 10),
+                                              Text(
+                                                berita['judul']!,
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 17),
+                                                textAlign: TextAlign.start,
+                                              ),
+                                              const SizedBox(height: 20),
+                                              SizedBox(
+                                                width: 167,
+                                                child: Text(
+                                                  berita['deskripsi']!,
+                                                  style: const TextStyle(
+                                                      fontWeight: FontWeight.w500),
+                                                  textAlign: TextAlign.start,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    const SizedBox(
-                                      width: 70,
-                                    ),
-                                    Text('3 menit',
-                                        style: TextStyle(
-                                            color: Colors.grey[700],
-                                            fontSize: 12)),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    const Icon(
-                                      Icons.access_time_filled,
-                                      color: Colors.grey,
-                                      size: 17,
-                                    )
-                                  ],
-                                ),
-                                const Text(
-                                  'Judul',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 17),
-                                  textAlign: TextAlign.start,
-                                ),
-                                const SizedBox(
-                                  height: 35,
-                                ),
-                                const SizedBox(
-                                  width: 167,
-                                  child: Text(
-                                    'lorem ipsum dolor sit amet',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w500),
-                                    textAlign: TextAlign.start,
                                   ),
-                                )
+                                ),
+                                SizedBox(height: 10,)
                               ],
-                            ),
-                          )
-                        ],
-                      ),
-                    )),
-                Card(
-                  color: Colors.white,
-                  margin: const EdgeInsets.fromLTRB(17, 10, 17, 20),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(
-                          'assets/umkm.jpeg',
-                          height: 150,
-                          width: 130,
-                          fit: BoxFit.cover,
+                            );
+                          },
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  'UMKM',
-                                  style: TextStyle(
-                                      color: Colors.grey[700], fontSize: 12),
-                                ),
-                                const SizedBox(
-                                  width: 70,
-                                ),
-                                Text('3 menit',
-                                    style: TextStyle(
-                                        color: Colors.grey[700], fontSize: 12)),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                const Icon(
-                                  Icons.access_time_filled,
-                                  color: Colors.grey,
-                                  size: 17,
-                                )
-                              ],
-                            ),
-                            const Text(
-                              'Judul',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 17),
-                              textAlign: TextAlign.start,
-                            ),
-                            const SizedBox(
-                              height: 35,
-                            ),
-                            const SizedBox(
-                              width: 167,
-                              child: Text(
-                                'lorem ipsum dolor sit amet',
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.start,
-                              ),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                Card(
-                  color: Colors.white,
-                  margin: const EdgeInsets.fromLTRB(17, 10, 17, 20),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.asset(
-                          'assets/umkm.jpeg',
-                          height: 150,
-                          width: 130,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10, horizontal: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  'UMKM',
-                                  style: TextStyle(
-                                      color: Colors.grey[700], fontSize: 12),
-                                ),
-                                const SizedBox(
-                                  width: 70,
-                                ),
-                                Text('3 menit',
-                                    style: TextStyle(
-                                        color: Colors.grey[700], fontSize: 12)),
-                                const SizedBox(
-                                  width: 5,
-                                ),
-                                const Icon(
-                                  Icons.access_time_filled,
-                                  color: Colors.grey,
-                                  size: 17,
-                                )
-                              ],
-                            ),
-                            const Text(
-                              'Judul',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 17),
-                              textAlign: TextAlign.start,
-                            ),
-                            const SizedBox(
-                              height: 35,
-                            ),
-                            const SizedBox(
-                              width: 167,
-                              child: Text(
-                                'lorem ipsum dolor sit amet',
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                                textAlign: TextAlign.start,
-                              ),
-                            )
-                          ],
-                        ),
-                      )
+                      SizedBox(height: 10,),
                     ],
                   ),
                 ),

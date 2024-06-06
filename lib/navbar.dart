@@ -62,7 +62,7 @@ class _HomeState extends State<Home> {
                               const Text(
                                 'Lapor',
                                 style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
+                                    fontSize: 18, fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(
                                 height: 40,

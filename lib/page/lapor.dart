@@ -31,7 +31,11 @@ class _LaporState extends State<Lapor> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Lapor'),
+          titleSpacing: 0,
+          title: const Text('Lapor', style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFD90429),
+          ),),
         ),
         body: SingleChildScrollView(
             child: Form(
@@ -87,6 +91,7 @@ class _LaporState extends State<Lapor> {
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 15, horizontal: 10),
                             hintText: 'Judul Laporan',
+                            hintStyle: TextStyle(fontWeight: FontWeight.normal),
                             focusedBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(
                                     color: Color(0xFF2B2D42), width: 2)),
@@ -94,7 +99,7 @@ class _LaporState extends State<Lapor> {
                                 borderRadius: BorderRadius.circular(10))),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'form tidak boleh kosong';
+                            return null;
                           }
                           return null;
                         },
@@ -106,12 +111,13 @@ class _LaporState extends State<Lapor> {
 
                       // form detail laporan
                       TextFormField(
+                        maxLines: 4,
                         controller: _detailController,
                         decoration: InputDecoration(
                             contentPadding: const EdgeInsets.symmetric(
-                                vertical: 50, horizontal: 10),
+                                vertical: 15, horizontal: 10),
                             hintText: 'Detail Laporan',
-                            hintStyle: const TextStyle(),
+                            hintStyle: const TextStyle(fontWeight: FontWeight.normal),
                             focusedBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(
                                     color: Color(0xFF2B2D42), width: 2)),
@@ -119,7 +125,7 @@ class _LaporState extends State<Lapor> {
                                 borderRadius: BorderRadius.circular(10))),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'form tidak boleh kosong';
+                            return null;
                           }
                           return null;
                         },
@@ -130,6 +136,7 @@ class _LaporState extends State<Lapor> {
                       ),
 
                       RadioListTile<String>(
+                        contentPadding: const EdgeInsets.all(0),
                         toggleable: true,
                         title: const Text(
                           'Kirim sebagai anonimous',

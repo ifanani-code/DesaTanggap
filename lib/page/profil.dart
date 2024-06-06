@@ -13,6 +13,7 @@ class _AkunState extends State<Akun> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         // elevation: 0,
         // backgroundColor: Colors.white,
         // iconTheme: const IconThemeData(color: Colors.black),

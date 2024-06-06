@@ -22,7 +22,6 @@ class _LaporanMasyarakatState extends State<LaporanMasyarakat> {
               style: TextStyle(
                 color: Color(0xFFD90429),
                 fontWeight: FontWeight.bold,
-                fontSize: 18,
               ),
             ),
             TextButton(
@@ -36,7 +35,7 @@ class _LaporanMasyarakatState extends State<LaporanMasyarakat> {
                 'Laporan Saya',
                 style: TextStyle(
                   color: Colors.black,
-                  fontWeight: FontWeight.normal,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),

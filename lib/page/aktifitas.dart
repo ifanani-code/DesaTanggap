@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'buat_dokumen.dart';
 // import 'laporan_masyarakat.dart';
 
 class Aktivitas extends StatelessWidget {
@@ -10,6 +11,7 @@ class Aktivitas extends StatelessWidget {
       length: 2, // Jumlah tab yang kita miliki
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: const Text(
             'Aktifitas',
             style: TextStyle(
@@ -227,7 +229,10 @@ class DokumenSaya extends StatelessWidget {
           SizedBox(height: 10,),
 
           ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>BuatDokumen()));
+
+              },
               style: ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(Color(0xFFD90429)),
                 minimumSize: MaterialStatePropertyAll(Size(109, 35)),

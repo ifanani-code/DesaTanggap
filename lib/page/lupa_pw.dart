@@ -12,12 +12,13 @@ class _LupaPWState extends State<LupaPW> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-              leading: IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: () => Navigator.pop(context),),
-            ),
+          leading: IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: () => Navigator.pop(context),
+          ),
+        ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -33,9 +34,8 @@ class _LupaPWState extends State<LupaPW> {
               ),
               const Text(
                 'Masukkan alamat email yang anda gunakan saat registrasi untuk dapat mengakses kembali akun anda',
-                style: TextStyle(
-                  fontSize: 15
-                ),
+                textAlign: TextAlign.justify,
+                style: TextStyle(fontSize: 15),
               ),
               const SizedBox(
                 height: 30,
@@ -45,11 +45,15 @@ class _LupaPWState extends State<LupaPW> {
                   // controller: _judulController,
                   decoration: InputDecoration(
                       contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 10),
+                          vertical: 12.5, horizontal: 15),
                       hintText: 'Masukkan Email anda',
-                      focusedBorder: const OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Color(0xFF2B2D42), width: 2)),
+                      hintStyle: TextStyle(
+                          color: Colors.grey.shade800,
+                          fontWeight: FontWeight.normal),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                              color: Color(0xFFD90429), width: 2)),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10))),
                 ),
@@ -62,8 +66,8 @@ class _LupaPWState extends State<LupaPW> {
                   style: ButtonStyle(
                       backgroundColor:
                           const MaterialStatePropertyAll(Color(0xFFD90429)),
-                      minimumSize:
-                          const MaterialStatePropertyAll(Size(320, 45)),
+                      minimumSize: const MaterialStatePropertyAll(
+                          Size(double.infinity, 45)),
                       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)))),
                   child: const Text(

@@ -27,6 +27,7 @@ class KontakDarurat extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text(
           'Kontak Darurat',
           style: TextStyle(
@@ -34,7 +35,7 @@ class KontakDarurat extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 30, 16, 16),
+        padding: const EdgeInsets.fromLTRB(16, 50, 16, 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

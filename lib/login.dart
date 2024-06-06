@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:homepage/page/lupa_pw.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -7,6 +8,88 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return const DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          body: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 75,
+              ),
+              SizedBox(
+                  height: 130,
+                  child: Column(
+                    children: [
+                      Text('Desa Tanggap',
+                          style: TextStyle(
+                              color: Color(0xFFD90429),
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold)),
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                        child: Text(
+                            'Aplikasi E-lapor untuk respons cepat masalah desa',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 17, fontWeight: FontWeight.w600)),
+                      ),
+                    ],
+                  )),
+
+              // Tab-bar
+              SizedBox(
+                height: 50,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 75),
+                      child: TabBar(
+                          dividerColor: Colors.white,
+                          labelColor: Color(0xFFD90429),
+                          indicatorColor: Color(0xFFD90429),
+                          unselectedLabelColor: Colors.grey,
+                          tabs: [
+                            Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Text(
+                                'Masuk',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(10),
+                              child: Text(
+                                'Daftar',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                          ]),
+                    )
+                  ],
+                ),
+              ),
+              Expanded(
+                  child: TabBarView(children: [
+                Masuk(),
+                Daftar(),
+              ]))
+            ],
+          ),
+        ));
+  }
+}
+
+class Masuk extends StatefulWidget {
+  const Masuk({super.key});
+
+  @override
+  State<Masuk> createState() => _MasukState();
+}
+
+class _MasukState extends State<Masuk> {
   final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -37,219 +120,475 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-          padding: const EdgeInsets.all(25.0),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 50,
-              ),
-              const Text('Desa tanggap',
-                  style: TextStyle(
-                      color: Color(0xFFD90429),
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold)),
-              const SizedBox(
-                height: 15,
-              ),
-              const Text('Aplikasi e-lapor untuk respons cepat masalah desa',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Color(0xFF2B2D42),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500)),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          'Masuk',
-                          style:
-                              TextStyle(color: Color(0xFFD90429), fontSize: 16),
-                        )),
-                    TextButton(
-                        onPressed: () {},
-                        child: const Text(
-                          'Daftar',
-                          style:
-                              TextStyle(color: Color(0xFF8D99AE), fontSize: 16),
-                        )),
-                  ],
-                ),
-              ),
-              Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    TextFormField(
-                      controller: _usernameController,
-                      decoration: const InputDecoration(
-                        // prefixIcon: IconButton(onPressed: (){}, icon: Icon(Icons.mail)),
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: 12.5, horizontal: 15),
-                        labelText: 'Username',
-                        border: OutlineInputBorder(),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Color(0xFF2B2D42), width: 2)),
+    return SingleChildScrollView(
+        child: Padding(
+      padding: const EdgeInsets.fromLTRB(15, 30, 15, 0),
+      child: Column(
+        children: <Widget>[
+          Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                TextFormField(
+                  controller: _usernameController,
+                  decoration: InputDecoration(
+                      // prefixIcon: IconButton(onPressed: (){}, icon: Icon(Icons.mail)),
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 12.5, horizontal: 15),
+                      labelText: 'Alamat email',
+                      floatingLabelStyle:
+                          TextStyle(color: Colors.grey.shade800),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                      // validator: (value) {
-                      //   if (value == null || value.isEmpty) {
-                      //     return 'Username tidak boleh kosong';
-                      //   }
-                      //   return null;
-                      // },
-                    ),
-                    const SizedBox(height: 10.0),
-                    TextFormField(
-                      controller: _passwordController,
-                      obscureText: !_passwordVisible,
-                      decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: const BorderSide(
+                              color: Color(0xFFD90429), width: 2))),
+                  // validator: (value) {
+                  //   if (value == null || value.isEmpty) {
+                  //     return 'Username tidak boleh kosong';
+                  //   }
+                  //   return null;
+                  // },
+                ),
+                const SizedBox(height: 25.0),
+                TextFormField(
+                  controller: _passwordController,
+                  obscureText: !_passwordVisible,
+                  decoration: InputDecoration(
 
-                          // focusColor: Color(0xFFD90429),
-                          suffixIcon: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                _passwordVisible = !_passwordVisible;
-                              });
-                            },
-                            icon: const Icon(Icons.remove_red_eye_outlined),
-                            color: Colors.grey,
+                      // focusColor: Color(0xFFD90429),
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        },
+                        icon: const Icon(Icons.remove_red_eye_outlined),
+                        color: Colors.grey,
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 12.5, horizontal: 15),
+                      labelText: 'Kata sandi',
+                      floatingLabelStyle:
+                          TextStyle(color: Colors.grey.shade800),
+                      focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                            color: Color(0xFFD90429),
+                            width: 2,
                           ),
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 12.5, horizontal: 15),
-                          labelText: 'Password',
-                          focusedBorder: const OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Color(0xFF2B2D42), width: 2)),
-                          border: const OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Color(0xFF2B2D42)))),
-                      // validator: (value) {
-                      //   if (value == null || value.isEmpty) {
-                      //     return 'Password tidak boleh kosong';
-                      //   }
-                      //   return null;
-                      // },
+                          borderRadius: BorderRadius.circular(10)),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      )),
+                  // validator: (value) {
+                  //   if (value == null || value.isEmpty) {
+                  //     return 'Password tidak boleh kosong';
+                  //   }
+                  //   return null;
+                  // },
+                ),
+                const SizedBox(height: 30.0),
+                ElevatedButton(
+                    onPressed: _login,
+                    style: ButtonStyle(
+                        backgroundColor:
+                            const MaterialStatePropertyAll(Color(0xFFD90429)),
+                        minimumSize: const MaterialStatePropertyAll(
+                            Size(double.infinity, 45)),
+                        shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)))),
+                    child: const Text(
+                      'Masuk',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    )),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 12,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                  onPressed: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const LupaPW())),
+                  child: const Text(
+                    'Lupa kata sandi?',
+                    textAlign: TextAlign.end,
+                    style: TextStyle(
+                        color: Color(0xFFD90429),
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ))
+            ],
+          ),
+          const SizedBox(
+            height: 12,
+          ),
+          SizedBox(
+            width: 300,
+            child: RichText(
+              text: const TextSpan(
+                style: TextStyle(height: 1.4),
+                children: [
+                  TextSpan(
+                    text: "Dengan masuk ke aplikasi, anda menyetujui segala ",
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey,
                     ),
-                    const SizedBox(height: 30.0),
-                    ElevatedButton(
-                        onPressed: _login,
-                        style: ButtonStyle(
-                            backgroundColor: const MaterialStatePropertyAll(
-                                Color(0xFFD90429)),
-                            minimumSize:
-                                const MaterialStatePropertyAll(Size(300, 45)),
-                            shape: MaterialStatePropertyAll(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)))),
-                        child: const Text(
-                          'Masuk',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        )),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                      onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const LupaPW())),
-                      child: const Text(
-                        'Lupa Password?',
-                        textAlign: TextAlign.end,
-                        style: TextStyle(
-                            color: Color(0xFFD90429),
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
-                      ))
+                  ),
+                  TextSpan(
+                    text: "Syarat dan Ketentuan ",
+                    style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        decorationColor: Color(0xFFD90429),
+                        decorationThickness: 2,
+                        fontSize: 15,
+                        color: Color(0xFFD90429),
+                        fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(
+                    text: "dan ",
+                    style: TextStyle(fontSize: 15, color: Colors.grey),
+                  ),
+                  TextSpan(
+                    text: "Kebijakan Privasi Desa Tanggap",
+                    style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        decorationColor: Color(0xFFD90429),
+                        decorationThickness: 2,
+                        fontSize: 15,
+                        color: Color(0xFFD90429),
+                        fontWeight: FontWeight.bold),
+                  ),
                 ],
               ),
-              const SizedBox(
-                height: 12,
-              ),
-              SizedBox(
-                width: 300,
-                child: RichText(
-                  text: const TextSpan(
-                    children: [
-                      TextSpan(
-                        text:
-                            "Dengan masuk ke aplikasi, anda menyetujui segala ",
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                        ),
-                      ),
-                      TextSpan(
-                        text: "Syarat dan Ketentuan ",
-                        style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            decorationColor: Color(0xFFD90429),
-                            decorationThickness: 2,
-                            fontSize: 15,
-                            color: Color(0xFFD90429),
-                            fontWeight: FontWeight.bold),
-                      ),
-                      TextSpan(
-                        text: "dan ",
-                        style:
-                            TextStyle(fontSize: 15, color: Colors.black),
-                      ),
-                      TextSpan(
-                        text: "Kebijakan Privasi Desa Tanggap",
-                        style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            decorationColor: Color(0xFFD90429),
-                            decorationThickness: 2,
-                            fontSize: 15,
-                            color: Color(0xFFD90429),
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ),
+            ),
+          ),
+          const SizedBox(
+            height: 51,
+          ),
+        ],
+      ),
+    ));
+  }
+}
+
+class Daftar extends StatefulWidget {
+  const Daftar({super.key});
+
+  @override
+  State<Daftar> createState() => _DaftarState();
+}
+
+class _DaftarState extends State<Daftar> {
+  int currentStep = 0;
+  bool isCompleted = false;
+
+  final nama = TextEditingController();
+  final username = TextEditingController();
+  final email = TextEditingController();
+  final password = TextEditingController();
+
+  List<Step> getSteps() => [
+        Step(
+          state: currentStep > 0 ? StepState.complete : StepState.indexed,
+          isActive: currentStep >= 0,
+          title: const Text(''),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const Text(
+                'Siapa nama kamu?',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
               const SizedBox(
-                height: 51,
+                height: 10,
               ),
-              const Divider(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'Belum punya akun?',
-                    style: TextStyle(color: Colors.black, fontSize: 15),
-                  ),
-                  TextButton(
-                      onPressed: () => Navigator.pushReplacementNamed(
-                            context,
-                            '/daftar',
-                          ),
-                      child: const Text(
-                        'Daftar di sini.',
-                        style: TextStyle(
-                            color: Color(0xFFD90429),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15),
-                      ))
-                ],
+              TextFormField(
+                controller: nama,
+                decoration: InputDecoration(
+                    enabledBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderSide: BorderSide(color: Colors.grey),
+                    ),
+                    hintText: 'Nama lengkap',
+                    hintStyle: TextStyle(
+                        color: Colors.grey.shade800,
+                        fontWeight: FontWeight.normal),
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 12.5, horizontal: 15),
+                    border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)))),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              const Text(
+                'Apa alamat email kamu?',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              TextFormField(
+                controller: email,
+                decoration: InputDecoration(
+                    hintText: 'Alamat email',
+                    hintStyle: TextStyle(
+                        color: Colors.grey.shade800,
+                        fontWeight: FontWeight.normal),
+                    enabledBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        borderSide: BorderSide(color: Colors.grey)),
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 12.5, horizontal: 15),
+                    border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)))),
               )
             ],
-          )),
+          ),
+        ),
+        Step(
+          state: currentStep > 1 ? StepState.complete : StepState.indexed,
+          isActive: currentStep >= 1,
+          title: const Text(''),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const Text(
+                'Buat nama penggunamu',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              TextFormField(
+                controller: username,
+                decoration: InputDecoration(
+                    border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.grey)),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 12.5),
+                    hintText: 'Username',
+                    hintStyle: TextStyle(
+                        color: Colors.grey.shade800,
+                        fontWeight: FontWeight.normal)),
+              )
+            ],
+          ),
+        ),
+        Step(
+          state: currentStep > 2 ? StepState.complete : StepState.indexed,
+          isActive: currentStep >= 2,
+          title: const Text(''),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const Text(
+                'Buat kata sandimu',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              TextFormField(
+                controller: password,
+                decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: const BorderSide(color: Colors.grey)),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 12.5),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    hintText: 'Kata Sandi',
+                    hintStyle: TextStyle(
+                        color: Colors.grey.shade800,
+                        fontWeight: FontWeight.normal)),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Text(
+                'Kata sandi minimal 6 karakter dengan huruf (a-z), angka (0-9), titik (.), dan/atau garis bawah (_)',
+                style: TextStyle(fontSize: 15, color: Colors.grey),
+              )
+            ],
+          ),
+        ),
+        Step(
+          state: currentStep > 3 ? StepState.complete : StepState.indexed,
+          isActive: currentStep >= 3,
+          title: const Text(''),
+          content: const Column(
+            children: <Widget>[
+              Text(
+                'Semua sudah siap!',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
+        ),
+      ];
+
+  buildCompleted() {
+    return Scaffold(
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.sp,
+            children: <Widget>[
+              const SizedBox(
+                height: 30,
+              ),
+              const Text(
+                'Berhasil daftar!',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              Image.asset(
+                'assets/Teamwork.png',
+                height: 200,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          const MaterialStatePropertyAll(Color(0xFFD90429)),
+                      minimumSize: const MaterialStatePropertyAll(
+                          Size(double.infinity, 45)),
+                      padding: const MaterialStatePropertyAll(
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 12.5)),
+                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)))),
+                  onPressed: () => setState(() {
+                        isCompleted = false;
+                        currentStep = 0;
+
+                        nama.clear();
+                        email.clear();
+                        password.clear();
+
+                        Navigator.pushNamed(context, '/login');
+                      }),
+                  child: const Text(
+                    'Selesai',
+                    style: TextStyle(color: Colors.white),
+                  ))
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: isCompleted
+          ? buildCompleted()
+          : Theme(
+              data: Theme.of(context).copyWith(
+                colorScheme:
+                    const ColorScheme.light(primary: Color(0xFFD90429)),
+              ),
+              child: Stepper(
+                elevation: 0,
+                margin: const EdgeInsets.symmetric(horizontal: 2),
+                connectorThickness: 0,
+                type: StepperType.horizontal,
+                steps: getSteps(),
+                currentStep: currentStep,
+                onStepTapped: (step) => setState(() => currentStep = step),
+                onStepContinue: () {
+                  final isLastStep = currentStep == getSteps().length - 1;
+                  if (isLastStep) {
+                    setState(() {
+                      isCompleted = true;
+                    });
+                  } else {
+                    setState(() {
+                      currentStep += 1;
+                    });
+                  }
+                },
+                onStepCancel: () {
+                  if (currentStep == 0) {
+                    return;
+                  }
+                  setState(() {
+                    currentStep -= 1;
+                  });
+                },
+                controlsBuilder:
+                    (BuildContext context, ControlsDetails details) {
+                  final isLastStep = currentStep == getSteps().length - 1;
+                  return Container(
+                    margin: const EdgeInsets.only(top: 50),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: details.onStepContinue,
+                            style: ButtonStyle(
+                                backgroundColor: const MaterialStatePropertyAll(
+                                    Color(0xFFD90429)),
+                                minimumSize: const MaterialStatePropertyAll(
+                                    Size(double.infinity, 45)),
+                                shape: MaterialStatePropertyAll(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10)))),
+                            child: Text(
+                              isLastStep ? 'Konfirmasi' : 'Selanjutnya',
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        if (currentStep != 0)
+                          Expanded(
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                  backgroundColor:
+                                      const MaterialStatePropertyAll(
+                                          Color(0xFF2B2D42)),
+                                  minimumSize: const MaterialStatePropertyAll(
+                                      Size(double.infinity, 45)),
+                                  shape: MaterialStatePropertyAll(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)))),
+                              onPressed: details.onStepCancel,
+                              child: const Text(
+                                'Kembali',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
     );
   }
 }

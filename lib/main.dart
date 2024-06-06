@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:homepage/daftar.dart';
 import 'package:homepage/navbar.dart';
 import 'package:homepage/login.dart';
 import 'package:homepage/page/detail_laporan.dart';
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => LoginScreen(),
         '/beranda': (context) => const Home(),
-        '/daftar': (context) => const Daftar(),
+        // '/daftar': (context) => const Daftar(),
         '/detail_laporan': (context) => const DetailLaporan(),
         },
     );
