@@ -1,3 +1,6 @@
+import 'package:homepage/page/lapor.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'laporan_saya.dart';
 
@@ -9,6 +12,8 @@ class LaporanMasyarakat extends StatefulWidget {
 }
 
 class _LaporanMasyarakatState extends State<LaporanMasyarakat> {
+  File? _selectedImage;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -659,7 +664,63 @@ class _LaporanMasyarakatState extends State<LaporanMasyarakat> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+              shape: const RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(32))),
+              context: context,
+              builder: (BuildContext context) => SizedBox(
+                    height: 200,
+                    width: double.infinity,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Lapor',
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () => _pickImageFromGallery(),
+                                style: const ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(
+                                        Color(0xFF2B2D42)),
+                                    foregroundColor:
+                                        MaterialStatePropertyAll(Colors.white)),
+                                child: const Text('Unggah foto'),
+                              ),
+                              const SizedBox(
+                                width: 30,
+                              ),
+                              ElevatedButton(
+                                  onPressed: () => _pickImageFromCamera(),
+                                  style: const ButtonStyle(
+                                      backgroundColor: MaterialStatePropertyAll(
+                                          Color(0xFFD90429)),
+                                      foregroundColor: MaterialStatePropertyAll(
+                                          Colors.white)),
+                                  child: const Text('Ambil foto'))
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          _selectedImage != null
+                              ? Image.file(_selectedImage!)
+                              : const Text('')
+                        ],
+                      ),
+                    ),
+                  ));
+        },
         backgroundColor: const Color(0xFFD90429),
         shape: const CircleBorder(),
         child: const Icon(
@@ -668,5 +729,125 @@ class _LaporanMasyarakatState extends State<LaporanMasyarakat> {
         ),
       ),
     );
+  }
+
+  Future _pickImageFromGallery() async {
+    final returnedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (returnedImage == null) return;
+    setState(() {
+      _selectedImage = File(returnedImage.path);
+    });
+
+    Navigator.pop(context);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Lapor(image: _selectedImage!),
+      ),
+    ).then((result) {
+      if (result == 'success') {
+        setState(() {
+          _selectedImage = null;
+        });
+
+        showModalBottomSheet(
+            context: context,
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(25))),
+            builder: (context) {
+              return Container(
+                padding: const EdgeInsets.all(16),
+                height: 200,
+                child: const Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.check_circle,
+                        color: Color(0xFF2B2D42),
+                        size: 60,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'Laporan berhasil dikirim!',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            });
+      } else {
+        setState(() {
+          _selectedImage = null;
+        });
+      }
+    });
+  }
+
+  Future _pickImageFromCamera() async {
+    final returnedImage =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+
+    if (returnedImage == null) return;
+    setState(() {
+      _selectedImage = File(returnedImage.path);
+    });
+
+    Navigator.pop(context);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Lapor(image: _selectedImage!),
+      ),
+    ).then((result) {
+      if (result == 'success') {
+        setState(() {
+          _selectedImage = null;
+        });
+
+        showModalBottomSheet(
+            context: context,
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(25))),
+            builder: (context) {
+              return Container(
+                padding: const EdgeInsets.all(16),
+                height: 200,
+                child: const Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.check_circle,
+                        color: Color(0xFF2B2D42),
+                        size: 60,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'Laporan berhasil dikirim!',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            });
+      } else {
+        setState(() {
+          _selectedImage = null;
+        });
+      }
+    });
   }
 }
