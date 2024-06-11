@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:homepage/config.dart';
 import 'package:homepage/models/login_request_model.dart';
+import 'package:homepage/models/regist_request_model.dart';
 import 'package:homepage/page/lupa_pw.dart';
 import 'package:homepage/services/api_service.dart';
 // import 'package:snippet_coder_utils/FormHelper.dart';
@@ -326,7 +327,9 @@ class Daftar extends StatefulWidget {
 class _DaftarState extends State<Daftar> {
   int currentStep = 0;
   bool isCompleted = false;
+  bool _passwordVisible = false;
 
+  final _formKey = GlobalKey<FormState>();
   final nama = TextEditingController();
   final username = TextEditingController();
   final email = TextEditingController();
@@ -362,6 +365,12 @@ class _DaftarState extends State<Daftar> {
                         vertical: 12.5, horizontal: 15),
                     border: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)))),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Nama tidak boleh kosong';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(
                 height: 30,
@@ -387,6 +396,12 @@ class _DaftarState extends State<Daftar> {
                         vertical: 12.5, horizontal: 15),
                     border: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)))),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Email tidak boleh kosong';
+                  }
+                  return null;
+                },
               )
             ],
           ),
@@ -419,6 +434,12 @@ class _DaftarState extends State<Daftar> {
                     hintStyle: TextStyle(
                         color: Colors.grey.shade800,
                         fontWeight: FontWeight.normal)),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Username tidak boleh kosong';
+                  }
+                  return null;
+                },
               )
             ],
           ),
@@ -439,7 +460,17 @@ class _DaftarState extends State<Daftar> {
               ),
               TextFormField(
                 controller: password,
+                obscureText: !_passwordVisible,
                 decoration: InputDecoration(
+                  suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        },
+                        icon: const Icon(Icons.remove_red_eye_outlined),
+                        color: Colors.grey,
+                      ),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: Colors.grey)),
@@ -451,6 +482,12 @@ class _DaftarState extends State<Daftar> {
                     hintStyle: TextStyle(
                         color: Colors.grey.shade800,
                         fontWeight: FontWeight.normal)),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Kata sandi tidak boleh kosong';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(
                 height: 10,
@@ -483,7 +520,6 @@ class _DaftarState extends State<Daftar> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.sp,
             children: <Widget>[
               const SizedBox(
                 height: 30,
@@ -534,93 +570,122 @@ class _DaftarState extends State<Daftar> {
     );
   }
 
+  void _register() {
+    if (_formKey.currentState!.validate()) {
+      RegisterRequestModel model = RegisterRequestModel(
+        fullName: nama.text,
+        username: username.text,
+        email: email.text,
+        password: password.text,
+      );
+
+      APIService.register(model).then((response) {
+        if (response) {
+          setState(() {
+            isCompleted = true;
+          });
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Registrasi gagal, coba lagi.'),
+            ),
+          );
+        }
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: isCompleted
           ? buildCompleted()
-          : Theme(
-              data: Theme.of(context).copyWith(
-                colorScheme:
-                    const ColorScheme.light(primary: Color(0xFFD90429)),
-              ),
-              child: Stepper(
-                elevation: 0,
-                margin: const EdgeInsets.symmetric(horizontal: 2),
-                connectorThickness: 0,
-                type: StepperType.horizontal,
-                steps: getSteps(),
-                currentStep: currentStep,
-                onStepTapped: (step) => setState(() => currentStep = step),
-                onStepContinue: () {
-                  final isLastStep = currentStep == getSteps().length - 1;
-                  if (isLastStep) {
+          : Form(
+              key: _formKey,
+              child: Theme(
+                data: Theme.of(context).copyWith(
+                  colorScheme:
+                      const ColorScheme.light(primary: Color(0xFFD90429)),
+                ),
+                child: Stepper(
+                  elevation: 0,
+                  margin: const EdgeInsets.symmetric(horizontal: 2),
+                  connectorThickness: 0,
+                  type: StepperType.horizontal,
+                  steps: getSteps(),
+                  currentStep: currentStep,
+                  onStepTapped: (step) => setState(() => currentStep = step),
+                  onStepContinue: () {
+                    final isLastStep = currentStep == getSteps().length - 1;
+                    if (isLastStep) {
+                      _register();
+                    } else {
+                      setState(() {
+                        currentStep += 1;
+                      });
+                    }
+                  },
+                  onStepCancel: () {
+                    if (currentStep == 0) {
+                      return;
+                    }
                     setState(() {
-                      isCompleted = true;
+                      currentStep -= 1;
                     });
-                  } else {
-                    setState(() {
-                      currentStep += 1;
-                    });
-                  }
-                },
-                onStepCancel: () {
-                  if (currentStep == 0) {
-                    return;
-                  }
-                  setState(() {
-                    currentStep -= 1;
-                  });
-                },
-                controlsBuilder:
-                    (BuildContext context, ControlsDetails details) {
-                  final isLastStep = currentStep == getSteps().length - 1;
-                  return Container(
-                    margin: const EdgeInsets.only(top: 50),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: details.onStepContinue,
-                            style: ButtonStyle(
-                                backgroundColor: const WidgetStatePropertyAll(
-                                    Color(0xFFD90429)),
-                                minimumSize: const WidgetStatePropertyAll(
-                                    Size(double.infinity, 45)),
-                                shape: WidgetStatePropertyAll(
-                                    RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10)))),
-                            child: Text(
-                              isLastStep ? 'Konfirmasi' : 'Selanjutnya',
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        if (currentStep != 0)
+                  },
+                  controlsBuilder:
+                      (BuildContext context, ControlsDetails details) {
+                    final isLastStep = currentStep == getSteps().length - 1;
+                    return Container(
+                      margin: const EdgeInsets.only(top: 50),
+                      child: Row(
+                        children: [
                           Expanded(
                             child: ElevatedButton(
+                              onPressed: details.onStepContinue,
                               style: ButtonStyle(
-                                  backgroundColor: const WidgetStatePropertyAll(
-                                      Color(0xFF2B2D42)),
+                                  backgroundColor:
+                                      const WidgetStatePropertyAll(
+                                          Color(0xFFD90429)),
                                   minimumSize: const WidgetStatePropertyAll(
                                       Size(double.infinity, 45)),
                                   shape: WidgetStatePropertyAll(
                                       RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(10)))),
-                              onPressed: details.onStepCancel,
-                              child: const Text(
-                                'Kembali',
-                                style: TextStyle(color: Colors.white),
+                              child: Text(
+                                isLastStep ? 'Konfirmasi' : 'Selanjutnya',
+                                style: const TextStyle(color: Colors.white),
                               ),
                             ),
                           ),
-                      ],
-                    ),
-                  );
-                },
+                          const SizedBox(width: 12),
+                          if (currentStep != 0)
+                            Expanded(
+                              child: ElevatedButton(
+                                style: ButtonStyle(
+                                    backgroundColor:
+                                        const WidgetStatePropertyAll(
+                                            Color(0xFF2B2D42)),
+                                    minimumSize:
+                                        const WidgetStatePropertyAll(
+                                            Size(double.infinity, 45)),
+                                    shape: WidgetStatePropertyAll(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10)))),
+                                onPressed: details.onStepCancel,
+                                child: const Text(
+                                  'Kembali',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
     );

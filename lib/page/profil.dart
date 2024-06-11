@@ -66,7 +66,8 @@ class _AkunState extends State<Akun> {
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        userProfileData.isNotEmpty ? userProfileData['data'][0]['username'] : '',
+                        // ignore: prefer_interpolation_to_compose_strings
+                        '@' + (userProfileData.isNotEmpty ? userProfileData['data'][0]['username'] : ''),
                         style: const TextStyle(color: Colors.grey),
                       ),
                     ],
