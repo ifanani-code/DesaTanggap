@@ -115,7 +115,7 @@ class _HomeState extends State<Home> {
       bottomNavigationBar: SafeArea(
         child: BottomAppBar(
           color: const Color(0xFF2B2D42),
-          padding: EdgeInsets.symmetric(horizontal: 4.0), // Adjust the padding
+          padding: const EdgeInsets.symmetric(horizontal: 4.0), // Adjust the padding
           shape: const CircularNotchedRectangle(),
           notchMargin: 0.1,
           child: SizedBox(
@@ -152,7 +152,7 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 ),
-                SizedBox(width: 16), // Add space between "Beranda" and "Aktivitas"
+                const SizedBox(width: 16), // Add space between "Beranda" and "Aktivitas"
                 Expanded(
                   child: MaterialButton(
                     minWidth: 20,
@@ -182,7 +182,7 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 ),
-                SizedBox(width: 32), // Add extra space between "Aktivitas" and "Notifikasi"
+                const SizedBox(width: 32), // Add extra space between "Aktivitas" and "Notifikasi"
                 Expanded(
                   child: MaterialButton(
                     minWidth: 20,
@@ -212,7 +212,7 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                 ),
-                SizedBox(width: 16), // Add space between "Notifikasi" and "Profil"
+                const SizedBox(width: 16), // Add space between "Notifikasi" and "Profil"
                 Expanded(
                   child: MaterialButton(
                     minWidth: 20,
