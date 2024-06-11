@@ -127,20 +127,6 @@ class _MasukState extends State<Masuk> {
           );
         }
       });
-      // Periksa apakah username dan password sesuai dengan nilai yang diharapkan
-      // if (username == 'fanani' && password == 'desatanggap') {
-      //   // Jika benar, navigasi ke halaman profil
-      //   Navigator.pushReplacementNamed(context, '/beranda', arguments: {
-      //     'username': username,
-      //     'password': password,
-      //   });
-      // } else {
-      //   ScaffoldMessenger.of(context).showSnackBar(
-      //     const SnackBar(
-      //       content: Text('Username atau password salah'),
-      //     ),
-      //   );
-      // }
     }
   }
 
@@ -462,15 +448,15 @@ class _DaftarState extends State<Daftar> {
                 controller: password,
                 obscureText: !_passwordVisible,
                 decoration: InputDecoration(
-                  suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _passwordVisible = !_passwordVisible;
-                          });
-                        },
-                        icon: const Icon(Icons.remove_red_eye_outlined),
-                        color: Colors.grey,
-                      ),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _passwordVisible = !_passwordVisible;
+                        });
+                      },
+                      icon: const Icon(Icons.remove_red_eye_outlined),
+                      color: Colors.grey,
+                    ),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: const BorderSide(color: Colors.grey)),
@@ -644,9 +630,8 @@ class _DaftarState extends State<Daftar> {
                             child: ElevatedButton(
                               onPressed: details.onStepContinue,
                               style: ButtonStyle(
-                                  backgroundColor:
-                                      const WidgetStatePropertyAll(
-                                          Color(0xFFD90429)),
+                                  backgroundColor: const WidgetStatePropertyAll(
+                                      Color(0xFFD90429)),
                                   minimumSize: const WidgetStatePropertyAll(
                                       Size(double.infinity, 45)),
                                   shape: WidgetStatePropertyAll(
@@ -667,9 +652,8 @@ class _DaftarState extends State<Daftar> {
                                     backgroundColor:
                                         const WidgetStatePropertyAll(
                                             Color(0xFF2B2D42)),
-                                    minimumSize:
-                                        const WidgetStatePropertyAll(
-                                            Size(double.infinity, 45)),
+                                    minimumSize: const WidgetStatePropertyAll(
+                                        Size(double.infinity, 45)),
                                     shape: WidgetStatePropertyAll(
                                         RoundedRectangleBorder(
                                             borderRadius:
