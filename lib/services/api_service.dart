@@ -64,25 +64,4 @@ class APIService {
       return false;
     }
   }
-
-  static Future<bool> editProfile(EditProfileRequestModel model, String token) async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token'
-    };
-
-    var url = Uri.http(Config.apiURL, Config.editProfileAPI);
-
-    var response = await http.patch(
-      url,
-      headers: requestHeaders,
-      body: jsonEncode(model.toJson()),
-    );
-
-    if (response.statusCode == 200) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 }
