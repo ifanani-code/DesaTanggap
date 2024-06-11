@@ -1,5 +1,6 @@
 import 'dart:convert';
-
+import 'package:http/http.dart' as http;
+import 'package:homepage/config.dart';
 import 'package:api_cache_manager/api_cache_manager.dart';
 import 'package:api_cache_manager/models/cache_db_model.dart';
 import 'package:flutter/material.dart';
@@ -39,4 +40,39 @@ class SharedService {
 
     Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
   }
+
+  static Future<String> getUserProfile(String token) async {
+    var requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    };
+
+    var url = Uri.http(Config.apiURL, Config.getUserProfile);
+
+    var response = await http.get(url, headers: requestHeaders);
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      throw Exception('Failed to load user profile');
+    }
+  }
+
+  Future<Map<String, dynamic>> fetchUserData(String token) async {
+  var url = Uri.http(Config.apiURL, Config.getUserProfile); // Ganti URL dengan URL API Anda
+  var headers = {
+    'Authorization': 'Bearer $token',
+    'Content-Type': 'application/json',
+  };
+
+  var response = await http.get(url, headers: headers);
+
+  if (response.statusCode == 200) {
+    // Jika permintaan berhasil
+    return json.decode(response.body); // Parsing JSON response
+  } else {
+    // Jika permintaan gagal
+    throw Exception('Failed to load user data');
+  }
+}
 }

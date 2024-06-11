@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:homepage/page/data_diri.dart';
+import 'package:homepage/services/shared_service.dart';
+import 'dart:convert';
 
 class Akun extends StatefulWidget {
   const Akun({super.key});
@@ -9,30 +11,39 @@ class Akun extends StatefulWidget {
 }
 
 class _AkunState extends State<Akun> {
+  late Map<String, dynamic> userProfileData = {}; // Mengubah tipe data userProfileData
+
+  @override
+  void initState() {
+    super.initState();
+    getUserProfileData();
+  }
+
+  void getUserProfileData() async {
+    var loginDetails = await SharedService.loginDetails();
+    var token = loginDetails?.token;
+
+    if (token != null) {
+      var profileData = await SharedService.getUserProfile(token);
+      setState(() {
+        userProfileData = json.decode(profileData); // Mengubah string menjadi Map
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        // elevation: 0,
-        // backgroundColor: Colors.white,
-        // iconTheme: const IconThemeData(color: Colors.black),
-        // actions: [
-        //   IconButton(
-        //     icon: const Icon(Icons.more_vert),
-        //     onPressed: () {
-        //       // Aksi untuk tombol lainnya
-        //     },
-        //   ),
-        // ],
       ),
       body: Container(
-        color: Color(0xFFEDF2F4),
+        color: const Color(0xFFEDF2F4),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              color: Colors.white, // Warna putih untuk row profile avatar
+              color: Colors.white,
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
               child: Row(
                 children: [
@@ -46,17 +57,17 @@ class _AkunState extends State<Akun> {
                     ),
                   ),
                   const SizedBox(width: 16),
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Azizi Asadel',
-                        style: TextStyle(
+                        userProfileData.isNotEmpty ? userProfileData['data'][0]['fullName'] : '',
+                        style: const TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        '@zee',
-                        style: TextStyle(color: Colors.grey),
+                        userProfileData.isNotEmpty ? userProfileData['data'][0]['username'] : '',
+                        style: const TextStyle(color: Colors.grey),
                       ),
                     ],
                   ),
@@ -64,17 +75,20 @@ class _AkunState extends State<Akun> {
                   IconButton(
                     icon: const Icon(Icons.edit, color: Colors.black),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const DataDiri()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const DataDiri()));
                     },
                   ),
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Container(
-              color: Colors.white, // Warna putih untuk list tile
+              color: Colors.white,
               child: Column(
                 children: [
                   ListTile(
@@ -84,7 +98,9 @@ class _AkunState extends State<Akun> {
                       // Aksi untuk tombol Pengaturan
                     },
                   ),
-                  const Divider(thickness: 0.5,),
+                  const Divider(
+                    thickness: 0.5,
+                  ),
                   ListTile(
                     leading: const Icon(Icons.info, color: Colors.black),
                     title: const Text('Tentang Aplikasi'),
@@ -95,18 +111,19 @@ class _AkunState extends State<Akun> {
                 ],
               ),
             ),
-                  SizedBox(
-                    height: 15,
-                  ),
+            const SizedBox(
+              height: 15,
+            ),
             Container(
-                color: Colors.white, // Warna putih untuk list tile
+                color: Colors.white,
                 child: Column(children: [
                   ListTile(
-                    leading: const Icon(Icons.exit_to_app, color: Color(0xFFD90429)),
+                    leading:
+                        const Icon(Icons.exit_to_app, color: Color(0xFFD90429)),
                     title: const Text('Keluar',
                         style: TextStyle(color: Color(0xFFD90429))),
                     onTap: () {
-                      // Aksi untuk tombol Keluar
+                      SharedService.logout(context);
                     },
                   ),
                 ]))

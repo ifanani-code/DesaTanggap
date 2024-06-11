@@ -1,27 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:homepage/services/shared_service.dart';
+import 'dart:convert';
 
 class DataDiri extends StatefulWidget {
-  const DataDiri({Key? key}) : super(key: key);
+  const DataDiri({super.key});
 
   @override
   State<DataDiri> createState() => _EditProfilePageState();
 }
 
 class _EditProfilePageState extends State<DataDiri> {
+  late Map<String, dynamic> userProfileData = {};
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _nameController.text = 'Azizi Asadel';
-    _usernameController.text = 'zee';
-    _emailController.text = 'azizi@email.com';
-    _phoneController.text = '088888888888';
+    getUserProfileData();
+  }
+
+  void getUserProfileData() async {
+    var loginDetails = await SharedService.loginDetails();
+    var token = loginDetails?.token;
+
+    if (token != null) {
+      var profileData = await SharedService.getUserProfile(token);
+      setState(() {
+        userProfileData = json.decode(profileData);
+        // Set nilai awal untuk TextEditingController setelah userProfileData diperbarui
+        _nameController.text = userProfileData.isNotEmpty ? userProfileData['data'][0]['fullName'] : '';
+        _usernameController.text = userProfileData.isNotEmpty ? userProfileData['data'][0]['username'] : '';
+        _emailController.text = userProfileData.isNotEmpty ? userProfileData['data'][0]['email'] : '';
+        _addressController.text = userProfileData.isNotEmpty ? userProfileData['data'][0]['address'] : '';
+      });
+    }
   }
 
   @override
@@ -131,19 +147,19 @@ class _EditProfilePageState extends State<DataDiri> {
                         return null;
                       },
                     ),
-                    const SizedBox(height: 10),
-                    TextFormField(
-                      controller: _phoneController,
-                      decoration: const InputDecoration(
-                        labelText: 'Nomor HP',
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Nomor HP tidak boleh kosong';
-                        }
-                        return null;
-                      },
-                    ),
+                    // const SizedBox(height: 10),
+                    // TextFormField(
+                    //   controller: _phoneController,
+                    //   decoration: const InputDecoration(
+                    //     labelText: 'Nomor HP',
+                    //   ),
+                    //   validator: (value) {
+                    //     if (value == null || value.isEmpty) {
+                    //       return 'Nomor HP tidak boleh kosong';
+                    //     }
+                    //     return null;
+                    //   },
+                    // ),
                     const SizedBox(height: 10),
                     TextFormField(
                       controller: _addressController,

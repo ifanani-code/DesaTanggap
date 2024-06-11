@@ -25,4 +25,25 @@ class APIService {
       return false;
     }
   }
+
+  static Future<String> getUserProfile(String token) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
+
+    var url = Uri.http(Config.apiURL, Config.getUserProfile);
+
+    var response = await client.get(
+      url,
+      headers: requestHeaders,
+    );
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      return "";
+    }
+  }
+
 }
