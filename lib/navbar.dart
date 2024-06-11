@@ -35,94 +35,96 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageStorage(bucket: bucket, child: currentScreen),
-      floatingActionButton: Container(
-        height: 65,
-        width: 65,
-        child: FittedBox(
-
-        child: FloatingActionButton(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
-            foregroundColor: Colors.white,
-            backgroundColor: const Color(0xFFD90429),
-            child: const Icon(Icons.camera_alt),
-            onPressed: () {
-              showModalBottomSheet(
-                  shape: const RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(32))),
-                  context: context,
-                  builder: (BuildContext context) => SizedBox(
-                        height: 200,
-                        width: double.infinity,
-                        child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text(
-                                'Lapor',
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(
-                                height: 40,
-                              ),
-                              Row(
+      floatingActionButton: SizedBox(
+          height: 65,
+          width: 65,
+          child: FittedBox(
+            child: FloatingActionButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100)),
+                foregroundColor: Colors.white,
+                backgroundColor: const Color(0xFFD90429),
+                child: const Icon(Icons.camera_alt),
+                onPressed: () {
+                  showModalBottomSheet(
+                      shape: const RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(32))),
+                      context: context,
+                      builder: (BuildContext context) => SizedBox(
+                            height: 200,
+                            width: double.infinity,
+                            child: Center(
+                              child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  ElevatedButton(
-                                    onPressed: () => _pickImageFromGallery(),
-                                    style: const ButtonStyle(
-                                        backgroundColor: WidgetStatePropertyAll(
-                                            Color(0xFF2B2D42)),
-                                        foregroundColor: WidgetStatePropertyAll(
-                                            Colors.white)),
-                                    child: const Text('Unggah foto'),
+                                  const Text(
+                                    'Lapor',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   const SizedBox(
-                                    width: 30,
+                                    height: 40,
                                   ),
-                                  ElevatedButton(
-                                      onPressed: () => _pickImageFromCamera(),
-                                      style: const ButtonStyle(
-                                          backgroundColor:
-                                              WidgetStatePropertyAll(
-                                                  Color(0xFFD90429)),
-                                          foregroundColor:
-                                              WidgetStatePropertyAll(
-                                                  Colors.white)),
-                                      child: const Text('Ambil foto'))
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ElevatedButton(
+                                        onPressed: () =>
+                                            _pickImageFromGallery(),
+                                        style: const ButtonStyle(
+                                            backgroundColor:
+                                                WidgetStatePropertyAll(
+                                                    Color(0xFF2B2D42)),
+                                            foregroundColor:
+                                                WidgetStatePropertyAll(
+                                                    Colors.white)),
+                                        child: const Text('Unggah foto'),
+                                      ),
+                                      const SizedBox(
+                                        width: 30,
+                                      ),
+                                      ElevatedButton(
+                                          onPressed: () =>
+                                              _pickImageFromCamera(),
+                                          style: const ButtonStyle(
+                                              backgroundColor:
+                                                  WidgetStatePropertyAll(
+                                                      Color(0xFFD90429)),
+                                              foregroundColor:
+                                                  WidgetStatePropertyAll(
+                                                      Colors.white)),
+                                          child: const Text('Ambil foto'))
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  _selectedImage != null
+                                      ? Image.file(_selectedImage!)
+                                      : const Text('')
                                 ],
                               ),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                              _selectedImage != null
-                                  ? Image.file(_selectedImage!)
-                                  : const Text('')
-                            ],
-                          ),
-                        ),
-                      ));
-              // Navigator.push(context, MaterialPageRoute(builder: (context)=>const Lapor()));
-            }),
-        )
-      ),
+                            ),
+                          ));
+                  // Navigator.push(context, MaterialPageRoute(builder: (context)=>const Lapor()));
+                }),
+          )),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        color: const Color(0xFF2B2D42),
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 0.1,
-        child: Container(
-          height: 60,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  MaterialButton(
+      bottomNavigationBar: SafeArea(
+        child: BottomAppBar(
+          color: const Color(0xFF2B2D42),
+          padding: EdgeInsets.symmetric(horizontal: 4.0), // Adjust the padding
+          shape: const CircularNotchedRectangle(),
+          notchMargin: 0.1,
+          child: SizedBox(
+            height: 60,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Expanded(
+                  child: MaterialButton(
                     minWidth: 20,
                     onPressed: () {
                       setState(() {
@@ -143,11 +145,16 @@ class _HomeState extends State<Home> {
                             style: TextStyle(
                                 color: currentTab == 0
                                     ? const Color(0xFFD90429)
-                                    : Colors.white))
+                                    : Colors.white,
+                                fontSize: 12), // Adjust the font size
+                        )
                       ],
                     ),
                   ),
-                  MaterialButton(
+                ),
+                SizedBox(width: 16), // Add space between "Beranda" and "Aktivitas"
+                Expanded(
+                  child: MaterialButton(
                     minWidth: 20,
                     onPressed: () {
                       setState(() {
@@ -168,11 +175,16 @@ class _HomeState extends State<Home> {
                             style: TextStyle(
                                 color: currentTab == 1
                                     ? const Color(0xFFD90429)
-                                    : Colors.white))
+                                    : Colors.white,
+                                fontSize: 12), // Adjust the font size
+                        ),
                       ],
                     ),
                   ),
-                  MaterialButton(
+                ),
+                SizedBox(width: 32), // Add extra space between "Aktivitas" and "Notifikasi"
+                Expanded(
+                  child: MaterialButton(
                     minWidth: 20,
                     onPressed: () {
                       setState(() {
@@ -193,11 +205,16 @@ class _HomeState extends State<Home> {
                             style: TextStyle(
                                 color: currentTab == 2
                                     ? const Color(0xFFD90429)
-                                    : Colors.white))
+                                    : Colors.white,
+                                fontSize: 10), // Adjust the font size
+                        ),
                       ],
                     ),
                   ),
-                  MaterialButton(
+                ),
+                SizedBox(width: 16), // Add space between "Notifikasi" and "Profil"
+                Expanded(
+                  child: MaterialButton(
                     minWidth: 20,
                     onPressed: () {
                       setState(() {
@@ -218,16 +235,19 @@ class _HomeState extends State<Home> {
                             style: TextStyle(
                                 color: currentTab == 3
                                     ? const Color(0xFFD90429)
-                                    : Colors.white))
+                                    : Colors.white,
+                                fontSize: 12), // Adjust the font size
+                        ),
                       ],
                     ),
                   ),
-                ],
-              )
-            ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
+
     );
   }
 
@@ -349,6 +369,5 @@ class _HomeState extends State<Home> {
         });
       }
     });
-
   }
 }
