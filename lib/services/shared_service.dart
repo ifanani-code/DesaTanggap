@@ -6,6 +6,7 @@ import 'package:api_cache_manager/models/cache_db_model.dart';
 import 'package:flutter/material.dart';
 import 'package:homepage/models/login_response_model.dart';
 import 'package:homepage/models/regist_request_model.dart';
+import 'package:homepage/models/edit_profile_request_model.dart';
 
 class SharedService {
   static Future<bool> isLoggedIn() async {
@@ -59,24 +60,6 @@ class SharedService {
     }
   }
 
-  Future<Map<String, dynamic>> fetchUserData(String token) async {
-    var url = Uri.http(Config.apiURL, Config.getUserProfile); // Ganti URL dengan URL API Anda
-    var headers = {
-      'Authorization': 'Bearer $token',
-      'Content-Type': 'application/json',
-    };
-
-    var response = await http.get(url, headers: headers);
-
-    if (response.statusCode == 200) {
-      // Jika permintaan berhasil
-      return json.decode(response.body); // Parsing JSON response
-    } else {
-      // Jika permintaan gagal
-      throw Exception('Failed to load user data');
-    }
-  }
-
   static Future<bool> register(RegisterRequestModel model) async {
     try {
       Map<String, String> requestHeaders = {
@@ -101,6 +84,27 @@ class SharedService {
     } catch (e) {
       // Tangani kesalahan jaringan atau kesalahan lainnya
       print('Error: $e');
+      return false;
+    }
+  }
+
+  static Future<bool> editProfile(EditProfileRequestModel model, String token) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
+
+    var url = Uri.http(Config.apiURL, Config.editProfileAPI);
+
+    var response = await http.patch(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode(model.toJson()),
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
       return false;
     }
   }

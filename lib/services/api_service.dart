@@ -3,6 +3,7 @@ import 'package:homepage/config.dart';
 import 'package:homepage/models/login_request_model.dart';
 import 'package:homepage/models/login_response_model.dart';
 import 'package:homepage/models/regist_request_model.dart';
+import 'package:homepage/models/edit_profile_request_model.dart';
 import 'package:homepage/services/shared_service.dart';
 import 'package:http/http.dart' as http;
 
@@ -64,5 +65,24 @@ class APIService {
     }
   }
 
+  static Future<bool> editProfile(EditProfileRequestModel model, String token) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
 
+    var url = Uri.http(Config.apiURL, Config.editProfileAPI);
+
+    var response = await http.patch(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode(model.toJson()),
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

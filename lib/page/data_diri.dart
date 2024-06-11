@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:homepage/services/shared_service.dart';
+import 'package:homepage/models/edit_profile_request_model.dart';
 import 'dart:convert';
 
 class DataDiri extends StatefulWidget {
@@ -26,19 +27,66 @@ class _EditProfilePageState extends State<DataDiri> {
   void getUserProfileData() async {
     var loginDetails = await SharedService.loginDetails();
     var token = loginDetails?.token;
+    print(token);
 
     if (token != null) {
       var profileData = await SharedService.getUserProfile(token);
-      setState(() {
-        userProfileData = json.decode(profileData);
-        // Set nilai awal untuk TextEditingController setelah userProfileData diperbarui
-        _nameController.text = userProfileData.isNotEmpty ? userProfileData['data'][0]['fullName'] : '';
-        _usernameController.text = userProfileData.isNotEmpty ? userProfileData['data'][0]['username'] : '';
-        _emailController.text = userProfileData.isNotEmpty ? userProfileData['data'][0]['email'] : '';
-        _addressController.text = userProfileData.isNotEmpty ? userProfileData['data'][0]['address'] : '';
-      });
+      print(profileData);
+      // ignore: unnecessary_null_comparison
+      if (profileData != null && profileData.isNotEmpty) {
+        setState(() {
+          userProfileData = json.decode(profileData);
+          // Set nilai awal untuk TextEditingController setelah userProfileData diperbarui
+          _nameController.text = userProfileData['data'][0]['fullName'] ?? '';
+          _usernameController.text =
+              userProfileData['data'][0]['username'] ?? '';
+          _emailController.text = userProfileData['data'][0]['email'] ?? '';
+          _addressController.text = userProfileData['data'][0]['address'] ?? '';
+        });
+      }
     }
   }
+
+  void updateUserProfile() async {
+    if (_formKey.currentState!.validate()) {
+      var loginDetails = await SharedService.loginDetails();
+      var token = loginDetails?.token;
+      if (token != null) {
+        var editRequestModel = EditProfileRequestModel(
+          fullName: _nameController.text,
+          email: _emailController.text,
+          address: _addressController.text,
+        );
+
+        var success = await SharedService.editProfile(editRequestModel, token);
+        if (success) {
+          // Berhasil memperbarui profil
+          showDialog(
+            // ignore: use_build_context_synchronously
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Profil Diperbarui"),
+                content: const Text("Profil Anda berhasil diperbarui."),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("OK"),
+                  ),
+                ],
+              );
+            },
+          );
+        } else {
+          // Gagal memperbarui profil
+          // Tambahkan logika untuk menampilkan pesan kesalahan atau tindakan yang diperlukan.
+        }
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -46,18 +94,19 @@ class _EditProfilePageState extends State<DataDiri> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         titleSpacing: 0,
-        title: const Text('Edit Profil', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)),
+        title: const Text('Edit Profil',
+            style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 20)),
         actions: [
           TextButton(
             onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                // Simpan data
-                Navigator.of(context).pop();
-              }
+              updateUserProfile();
             },
             child: const Text(
               'Simpan',
-              style: TextStyle(color: Color(0xFFD90429), fontSize: 16  ),
+              style: TextStyle(color: Color(0xFFD90429), fontSize: 16),
             ),
           ),
         ],
@@ -86,13 +135,12 @@ class _EditProfilePageState extends State<DataDiri> {
                         radius: 17.5,
                         backgroundColor: Colors.white,
                         child: IconButton(
-                          onPressed: () {
-                            
-                          },
-                          icon: Icon(Icons.camera_alt,
-                          color: Color(0xFFD90429),
-                          size: 17.5,)
-                        ),
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.camera_alt,
+                              color: Color(0xFFD90429),
+                              size: 17.5,
+                            )),
                       ),
                     ),
                   ],

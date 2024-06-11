@@ -25,6 +25,7 @@ class _AkunState extends State<Akun> {
 
     if (token != null) {
       var profileData = await SharedService.getUserProfile(token);
+      print(profileData);
       setState(() {
         userProfileData = json.decode(profileData); // Mengubah string menjadi Map
       });
