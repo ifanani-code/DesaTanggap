@@ -73,9 +73,9 @@ class _HomeState extends State<Home> {
                                   ElevatedButton(
                                     onPressed: () => _pickImageFromGallery(),
                                     style: const ButtonStyle(
-                                        backgroundColor: MaterialStatePropertyAll(
+                                        backgroundColor: WidgetStatePropertyAll(
                                             Color(0xFF2B2D42)),
-                                        foregroundColor: MaterialStatePropertyAll(
+                                        foregroundColor: WidgetStatePropertyAll(
                                             Colors.white)),
                                     child: const Text('Unggah foto'),
                                   ),
@@ -86,10 +86,10 @@ class _HomeState extends State<Home> {
                                       onPressed: () => _pickImageFromCamera(),
                                       style: const ButtonStyle(
                                           backgroundColor:
-                                              MaterialStatePropertyAll(
+                                              WidgetStatePropertyAll(
                                                   Color(0xFFD90429)),
                                           foregroundColor:
-                                              MaterialStatePropertyAll(
+                                              WidgetStatePropertyAll(
                                                   Colors.white)),
                                       child: const Text('Ambil foto'))
                                 ],

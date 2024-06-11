@@ -22,13 +22,13 @@ class _HPageState extends State<HPage> {
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, String> arguments =
-        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
+    // final Map<String, String> arguments =
+    //     ModalRoute.of(context)!.settings.arguments as Map<String, String>;
 
-    final username = arguments['username'];
-    final password = arguments['password'];
+    // // final username = arguments['username'];
+    // // final password = arguments['password'];
 
-    if (username == 'fanani' && password == '6701223054') {}
+    // // if (username == 'fanani' && password == '6701223054') {}
 
     final List<Map<String, String>> beritaList = [
       {

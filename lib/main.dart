@@ -5,17 +5,19 @@ import 'package:homepage/page/detail_laporan.dart';
 
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: const LoginScreen(),
       routes: {
-        '/login': (context) => LoginScreen(),
+        '/login': (context) => const LoginScreen(),
         '/beranda': (context) => const Home(),
         // '/daftar': (context) => const Daftar(),
         '/detail_laporan': (context) => const DetailLaporan(),

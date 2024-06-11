@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+// import 'package:homepage/config.dart';
+import 'package:homepage/models/login_request_model.dart';
 import 'package:homepage/page/lupa_pw.dart';
+import 'package:homepage/services/api_service.dart';
+// import 'package:snippet_coder_utils/FormHelper.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -95,26 +100,46 @@ class _MasukState extends State<Masuk> {
   final _passwordController = TextEditingController();
 
   bool _passwordVisible = false;
+  bool isAPICallProcess = false;
 
   void _login() {
-    if (_formKey.currentState!.validate()) {
+    if (validateAndSave()) {
       String username = _usernameController.text;
       String password = _passwordController.text;
 
+      setState(() {
+        isAPICallProcess = true;
+      });
+
+      LoginRequestModel model =
+          LoginRequestModel(username: username, password: password);
+
+      APIService.login(model).then((response) {
+        if (response) {
+          Navigator.pushNamedAndRemoveUntil(
+              context, '/beranda', (Route) => false);
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Username atau password salah'),
+            ),
+          );
+        }
+      });
       // Periksa apakah username dan password sesuai dengan nilai yang diharapkan
-      if (username == 'fanani' && password == 'desatanggap') {
-        // Jika benar, navigasi ke halaman profil
-        Navigator.pushReplacementNamed(context, '/beranda', arguments: {
-          'username': username,
-          'password': password,
-        });
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Username atau password salah'),
-          ),
-        );
-      }
+      // if (username == 'fanani' && password == 'desatanggap') {
+      //   // Jika benar, navigasi ke halaman profil
+      //   Navigator.pushReplacementNamed(context, '/beranda', arguments: {
+      //     'username': username,
+      //     'password': password,
+      //   });
+      // } else {
+      //   ScaffoldMessenger.of(context).showSnackBar(
+      //     const SnackBar(
+      //       content: Text('Username atau password salah'),
+      //     ),
+      //   );
+      // }
     }
   }
 
@@ -136,7 +161,7 @@ class _MasukState extends State<Masuk> {
                       // prefixIcon: IconButton(onPressed: (){}, icon: Icon(Icons.mail)),
                       contentPadding: const EdgeInsets.symmetric(
                           vertical: 12.5, horizontal: 15),
-                      labelText: 'Alamat email',
+                      labelText: 'Username',
                       floatingLabelStyle:
                           TextStyle(color: Colors.grey.shade800),
                       border: OutlineInputBorder(
@@ -146,12 +171,12 @@ class _MasukState extends State<Masuk> {
                           borderRadius: BorderRadius.circular(10),
                           borderSide: const BorderSide(
                               color: Color(0xFFD90429), width: 2))),
-                  // validator: (value) {
-                  //   if (value == null || value.isEmpty) {
-                  //     return 'Username tidak boleh kosong';
-                  //   }
-                  //   return null;
-                  // },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Username tidak boleh kosong';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 25.0),
                 TextFormField(
@@ -183,22 +208,22 @@ class _MasukState extends State<Masuk> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                       )),
-                  // validator: (value) {
-                  //   if (value == null || value.isEmpty) {
-                  //     return 'Password tidak boleh kosong';
-                  //   }
-                  //   return null;
-                  // },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Password tidak boleh kosong';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 30.0),
                 ElevatedButton(
                     onPressed: _login,
                     style: ButtonStyle(
                         backgroundColor:
-                            const MaterialStatePropertyAll(Color(0xFFD90429)),
-                        minimumSize: const MaterialStatePropertyAll(
+                            const WidgetStatePropertyAll(Color(0xFFD90429)),
+                        minimumSize: const WidgetStatePropertyAll(
                             Size(double.infinity, 45)),
-                        shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                        shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10)))),
                     child: const Text(
                       'Masuk',
@@ -278,6 +303,16 @@ class _MasukState extends State<Masuk> {
         ],
       ),
     ));
+  }
+
+  bool validateAndSave() {
+    final form = _formKey.currentState;
+    if (form!.validate()) {
+      form.save();
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 
@@ -471,12 +506,12 @@ class _DaftarState extends State<Daftar> {
               ElevatedButton(
                   style: ButtonStyle(
                       backgroundColor:
-                          const MaterialStatePropertyAll(Color(0xFFD90429)),
-                      minimumSize: const MaterialStatePropertyAll(
+                          const WidgetStatePropertyAll(Color(0xFFD90429)),
+                      minimumSize: const WidgetStatePropertyAll(
                           Size(double.infinity, 45)),
-                      padding: const MaterialStatePropertyAll(
+                      padding: const WidgetStatePropertyAll(
                           EdgeInsets.symmetric(horizontal: 15, vertical: 12.5)),
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                      shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)))),
                   onPressed: () => setState(() {
                         isCompleted = false;
@@ -548,11 +583,11 @@ class _DaftarState extends State<Daftar> {
                           child: ElevatedButton(
                             onPressed: details.onStepContinue,
                             style: ButtonStyle(
-                                backgroundColor: const MaterialStatePropertyAll(
+                                backgroundColor: const WidgetStatePropertyAll(
                                     Color(0xFFD90429)),
-                                minimumSize: const MaterialStatePropertyAll(
+                                minimumSize: const WidgetStatePropertyAll(
                                     Size(double.infinity, 45)),
-                                shape: MaterialStatePropertyAll(
+                                shape: WidgetStatePropertyAll(
                                     RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(10)))),
@@ -567,12 +602,11 @@ class _DaftarState extends State<Daftar> {
                           Expanded(
                             child: ElevatedButton(
                               style: ButtonStyle(
-                                  backgroundColor:
-                                      const MaterialStatePropertyAll(
-                                          Color(0xFF2B2D42)),
-                                  minimumSize: const MaterialStatePropertyAll(
+                                  backgroundColor: const WidgetStatePropertyAll(
+                                      Color(0xFF2B2D42)),
+                                  minimumSize: const WidgetStatePropertyAll(
                                       Size(double.infinity, 45)),
-                                  shape: MaterialStatePropertyAll(
+                                  shape: WidgetStatePropertyAll(
                                       RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(10)))),
