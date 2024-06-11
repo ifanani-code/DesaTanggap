@@ -63,4 +63,24 @@ class APIService {
       return false;
     }
   }
+
+  static Future<String> getAllLaporan(String token) async {
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
+
+    var url = Uri.http(Config.apiURL, Config.getAllLaporanAPI);
+
+    var response = await client.get(
+      url,
+      headers: requestHeaders,
+    );
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      return "";
+    }
+  }
 }

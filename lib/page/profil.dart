@@ -11,7 +11,8 @@ class Akun extends StatefulWidget {
 }
 
 class _AkunState extends State<Akun> {
-  late Map<String, dynamic> userProfileData = {}; // Mengubah tipe data userProfileData
+  late Map<String, dynamic> userProfileData =
+      {}; // Mengubah tipe data userProfileData
 
   @override
   void initState() {
@@ -27,7 +28,8 @@ class _AkunState extends State<Akun> {
       var profileData = await SharedService.getUserProfile(token);
       print(profileData);
       setState(() {
-        userProfileData = json.decode(profileData); // Mengubah string menjadi Map
+        userProfileData =
+            json.decode(profileData); // Mengubah string menjadi Map
       });
     }
   }
@@ -62,13 +64,18 @@ class _AkunState extends State<Akun> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        userProfileData.isNotEmpty ? userProfileData['data'][0]['fullName'] : '',
+                        userProfileData.isNotEmpty
+                            ? userProfileData['data'][0]['fullName']
+                            : '',
                         style: const TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       Text(
                         // ignore: prefer_interpolation_to_compose_strings
-                        '@' + (userProfileData.isNotEmpty ? userProfileData['data'][0]['username'] : ''),
+                        '@' +
+                            (userProfileData.isNotEmpty
+                                ? userProfileData['data'][0]['username']
+                                : ''),
                         style: const TextStyle(color: Colors.grey),
                       ),
                     ],
