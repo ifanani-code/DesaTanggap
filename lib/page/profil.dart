@@ -27,7 +27,7 @@ class _AkunState extends State<Akun> {
         // ],
       ),
       body: Container(
-        color: Color(0xFFEDF2F4),
+        color: const Color(0xFFEDF2F4),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -64,13 +64,16 @@ class _AkunState extends State<Akun> {
                   IconButton(
                     icon: const Icon(Icons.edit, color: Colors.black),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=>const DataDiri()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const DataDiri()));
                     },
                   ),
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Container(
@@ -84,7 +87,9 @@ class _AkunState extends State<Akun> {
                       // Aksi untuk tombol Pengaturan
                     },
                   ),
-                  const Divider(thickness: 0.5,),
+                  const Divider(
+                    thickness: 0.5,
+                  ),
                   ListTile(
                     leading: const Icon(Icons.info, color: Colors.black),
                     title: const Text('Tentang Aplikasi'),
@@ -95,18 +100,31 @@ class _AkunState extends State<Akun> {
                 ],
               ),
             ),
-                  SizedBox(
-                    height: 15,
-                  ),
+            const SizedBox(
+              height: 15,
+            ),
             Container(
                 color: Colors.white, // Warna putih untuk list tile
                 child: Column(children: [
                   ListTile(
-                    leading: const Icon(Icons.exit_to_app, color: Color(0xFFD90429)),
+                    leading:
+                        const Icon(Icons.exit_to_app, color: Color(0xFFD90429)),
                     title: const Text('Keluar',
                         style: TextStyle(color: Color(0xFFD90429))),
                     onTap: () {
                       // Aksi untuk tombol Keluar
+                    },
+                  ),
+                  const Divider(
+                    thickness: 0.5,
+                  ), // Divider untuk memisahkan
+                  ListTile(
+                    leading: const Icon(Icons.delete_forever,
+                        color: Color(0xFFD90429)),
+                    title: const Text('Hapus Akun',
+                        style: TextStyle(color: Color(0xFFD90429))),
+                    onTap: () {
+                      // Aksi untuk tombol Hapus Akun
                     },
                   ),
                 ]))
