@@ -34,6 +34,44 @@ class _AkunState extends State<Akun> {
     }
   }
 
+  void _confirmDeleteAccount(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Konfirmasi Hapus Akun'),
+          content: const Text('Apakah Anda yakin ingin menghapus akun Anda?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Batal'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Hapus'),
+              onPressed: () async {
+                var loginDetails = await SharedService.loginDetails();
+                var token = loginDetails?.token;
+                if (token != null) {
+                  try {
+                    await SharedService.deleteAccount(token);
+                    Navigator.of(context).pop();
+                    SharedService.logout(
+                        context); // Logout setelah menghapus akun
+                  } catch (e) {
+                    // Tangani kesalahan jika terjadi
+                    print('Error: $e');
+                  }
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,7 +173,19 @@ class _AkunState extends State<Akun> {
                       SharedService.logout(context);
                     },
                   ),
-                ]))
+                  const Divider(
+                    thickness: 0.5,
+                  ), // Divider untuk memisahkan
+                  ListTile(
+                    leading: const Icon(Icons.delete_forever,
+                        color: Color(0xFFD90429)),
+                    title: const Text('Hapus Akun',
+                        style: TextStyle(color: Color(0xFFD90429))),
+                    onTap: () {
+                      _confirmDeleteAccount(context);
+                    },
+                  ),
+                ])),
           ],
         ),
       ),

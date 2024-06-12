@@ -6,4 +6,5 @@ class Config {
   static const String getUserProfile = "/users/profil";
   static const String editProfileAPI = "/users/edit-profil";
   static const String getAllLaporanAPI = "/laporan/";
+  static const String deleteAccount = "/users/delete";
 }

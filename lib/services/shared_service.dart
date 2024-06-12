@@ -88,7 +88,8 @@ class SharedService {
     }
   }
 
-  static Future<bool> editProfile(EditProfileRequestModel model, String token) async {
+  static Future<bool> editProfile(
+      EditProfileRequestModel model, String token) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token'
@@ -126,6 +127,24 @@ class SharedService {
       return response.body;
     } else {
       return "";
+    }
+  }
+
+  static Future<void> deleteAccount(String token) async {
+    var url = Uri.http(Config.apiURL, Config.deleteAccount);
+    var response = await http.delete(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      // Akun berhasil dihapus
+      print('Delete user success');
+    } else {
+      throw Exception('Failed to delete account');
     }
   }
 }
